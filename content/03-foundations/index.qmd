@@ -1,0 +1,12 @@
+---
+title: "Foundations"
+---
+
+Use this section for shared concepts that support multiple robotics areas.
+
+## Candidate Topics
+
+- Coordinate frames and transforms
+- Uncertainty and probability basics
+- Optimization intuition
+- Motion and kinematics recap

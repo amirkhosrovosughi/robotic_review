@@ -1,0 +1,67 @@
+---
+title: "MPC (Model Predictive Control)"
+---
+
+## Overview
+
+MPC stands for **Model Predictive Control**.
+It solves a finite-horizon optimization problem at each control step, applies only the first control action, and then repeats the optimization with updated state information.
+
+This receding-horizon strategy lets MPC handle constraints explicitly while still reacting online.
+
+## Why This Demo Is a Toy Example
+
+A full production MPC stack can be large and highly system-specific:
+
+- accurate dynamics models,
+- high-dimensional state/control constraints,
+- robust real-time numerical solvers,
+- estimator/controller integration.
+
+For learning purposes, this repository uses a **toy MPC example** in notebook form that focuses on core ideas: prediction horizon, cost shaping, constraints, and receding-horizon execution.
+
+If your focus is path planning specifically, continue to:
+
+- [MPC for Path Planning](mpc-path-planning.qmd)
+
+## Core MPC Loop
+
+At each time step:
+
+1. Predict future state trajectory over horizon $N$.
+2. Minimize objective (tracking error + control effort + smoothness terms).
+3. Enforce constraints (state/control bounds).
+4. Apply the first control input only.
+5. Shift horizon forward and solve again.
+
+## Scope Pages
+
+To keep concepts organized, MPC content is split into focused pages:
+
+- [Linear MPC](mpc-linear.qmd)
+- [Nonlinear MPC](mpc-nonlinear.qmd)
+- [MPC for Path Planning](mpc-path-planning.qmd)
+
+## Demo {#demo}
+
+The notebook demonstrates a constrained receding-horizon controller on a simple 1D double-integrator system using a compact optimization approximation suitable for teaching.
+
+If you want the notebook-style workflow, open:
+
+- [Open In Jupyter Lab](http://localhost:8888/lab/tree/notebooks/path-planning/optimization/mpc_toy_demo.ipynb)
+
+Exact steps:
+
+1. Open a terminal at the repository root.
+2. Run:
+
+```bash
+source .venv/bin/activate
+jupyter lab --no-browser --port 8888
+```
+
+3. Copy the URL shown by Jupyter (it includes a token) and open it in your browser.
+4. In Jupyter Lab, open `notebooks/path-planning/optimization/mpc_toy_demo.ipynb` from the file browser.
+5. Run cells with Shift+Enter and tune horizon, weights, and bounds.
+
+Note: `mpc_toy_demo.html` is a rendered static page. The editable environment is the `.ipynb` file in Jupyter Lab or VS Code notebook editor.

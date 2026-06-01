@@ -1,0 +1,69 @@
+---
+title: "Anytime A*"
+---
+
+## Overview
+
+Anytime A* is a family of planning strategies that produces a feasible path quickly and then improves solution quality as more computation time is available.
+
+Instead of waiting for the best possible answer first, it returns a usable path early and refines it over time.
+
+## When to Use It
+
+Use Anytime A* when:
+
+- you have strict time limits,
+- you still want path quality to improve if extra time is available,
+- and the environment supports repeated replanning or iterative refinement.
+
+## Core Idea
+
+A common approach is to start with an inflated heuristic (more greedy search) to get a fast initial solution, then reduce inflation and rerun/refine to approach optimality.
+
+You can think of it as:
+
+1. Fast first answer,
+2. Better answers with additional iterations,
+3. Convergence toward standard A* behavior.
+
+## Why It Matters
+
+In robotic systems, a rough path now is often better than a perfect path too late.
+Anytime A* helps balance responsiveness and quality.
+
+## Trade-Offs
+
+- Very good for time-bounded planning loops.
+- Requires careful schedule for heuristic inflation reduction.
+- Intermediate paths may be suboptimal.
+- More control logic than plain A*.
+
+## How It Relates to A*
+
+- Standard A* aims directly for optimality with admissible heuristic.
+- Anytime A* intentionally relaxes this early to gain speed.
+- As inflation decreases, behavior approaches A*.
+
+## Demo {#demo}
+
+The demo notebook compares multiple inflation levels and shows how path quality changes from fast-first to refined results.
+
+If you want the notebook-style workflow, open:
+
+- [Open In Jupyter Lab](http://localhost:8888/lab/tree/notebooks/path-planning/grid-graph/anytime_a_star_demo.ipynb)
+
+Exact steps:
+
+1. Open a terminal at the repository root.
+2. Run:
+
+```bash
+source .venv/bin/activate
+jupyter lab --no-browser --port 8888
+```
+
+3. Copy the URL shown by Jupyter (it includes a token) and open it in your browser.
+4. In Jupyter Lab, open `notebooks/path-planning/grid-graph/anytime_a_star_demo.ipynb` from the file browser.
+5. Run cells with Shift+Enter and change inflation schedules.
+
+Note: `anytime_a_star_demo.html` is a rendered static page. The editable environment is the `.ipynb` file in Jupyter Lab or VS Code notebook editor.

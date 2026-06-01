@@ -1,0 +1,116 @@
+---
+title: "Path Planning"
+---
+
+This page is a high-level map of path planning methods used in robotics.
+
+## Definition and Goal
+
+Path planning computes a feasible route from a start state to a goal state while satisfying constraints such as collision avoidance, kinematic limits, and environment changes.
+
+## Taxonomy at a Glance
+
+Two useful ways to categorize methods are:
+
+- Scope: global vs local planning
+- Representation: grid/graph search, sampling-based, and optimization-based
+
+## Method Families
+
+The lists below are ordered in a sensible study sequence: start from simpler baseline methods, then move to faster variants, replanning methods, and more specialized planners.
+
+### Grid and Graph Search
+
+- BFS: Unweighted graph search for shortest path in number of edges. [Detail](demos/grid-graph/bfs.qmd) | [Demo](demos.qmd#bfs)
+- Dijkstra: Weighted graph search that guarantees optimal cost-to-go. [Detail](demos/grid-graph/dijkstra.qmd) | [Demo](demos.qmd#dijkstra)
+- A*: Heuristic search balancing speed and solution quality. [Detail](demos/grid-graph/a-star.qmd) | [Demo](demos.qmd#a-star)
+- Theta*: Any-angle extension of A* that reduces grid-constrained zig-zag paths. [Detail](demos/grid-graph/theta-star.qmd) | [Demo](demos.qmd#theta-star)
+- JPS (Jump Point Search): Grid-search acceleration technique that prunes symmetric expansions on uniform-cost maps. [Detail](demos/grid-graph/jps.qmd) | [Demo](demos.qmd#jps)
+- D*: Incremental graph replanning for changing maps. [Detail](demos/grid-graph/d-star.qmd) | [Demo](demos.qmd#d-star)
+- D* Lite: Simplified and efficient incremental replanning based on Lifelong Planning A*. [Detail](demos/grid-graph/d-star-lite.qmd) | [Demo](demos.qmd#d-star-lite)
+- Anytime A*: Produces a fast initial solution and improves it as more time is available. [Detail](demos/grid-graph/anytime-a-star.qmd) | [Demo](demos.qmd#anytime-a-star)
+- Anytime D*: Anytime replanning variant for dynamic environments with bounded improvement over time. [Detail](demos/grid-graph/anytime-d-star.qmd) | [Demo](demos.qmd#anytime-d-star)
+- Hybrid A*: A* variant with continuous heading and vehicle-feasible motion primitives. [Detail](demos/grid-graph/hybrid-a-star.qmd) | [Demo](demos.qmd#hybrid-a-star)
+
+### Sampling-Based Planning
+
+- PRM: Builds a roadmap of collision-free samples for multi-query planning. [Detail](demos/graph_based/prm.qmd) | [Demo](demos.qmd#prm)
+- RRT: Rapidly explores feasible space for fast first-solution discovery. [Detail](demos/graph_based/rrt.qmd) | [Demo](demos.qmd#rrt)
+- RRT*: RRT variant that rewires for asymptotic optimality. [Detail](demos/graph_based/rrt-star.qmd) | [Demo](demos.qmd#rrt-star)
+
+### Local Planning and Trajectory Methods
+
+- DWA (Dynamic Window Approach): Evaluates short-horizon velocity commands and selects a safe local motion. [Detail](demos/local-planning/dwa.qmd) | [Demo](demos.qmd#dwa)
+- TEB (Timed Elastic Band): Optimizes a local time-parameterized trajectory under obstacle and kinematic constraints. [Detail](demos/local-planning/teb.qmd) | [Demo](demos.qmd#teb)
+- Frenet-frame planners: Generate trajectories in road-aligned Frenet coordinates, common in structured driving scenarios. [Detail](demos/local-planning/frenet-frame-planners.qmd) | [Demo](demos.qmd#frenet-frame-planners)
+
+### Optimization and Predictive Methods
+
+- MPC (Model Predictive Control): Solves a constrained predictive optimization problem at each control step. [Detail](demos/optimization/mpc.qmd) | [Demo](demos.qmd#mpc)
+
+## Additional Methods to Consider
+
+This list is a coverage checklist for future expansion:
+
+- State lattice planning: Structured motion primitives for nonholonomic vehicles.
+- Kinodynamic RRT/RRT*: Sampling with dynamic feasibility.
+- CHOMP/STOMP: Optimization-based trajectory generation.
+
+## Suggested Study Order
+
+If you want to study these methods progressively, this order builds the main ideas with fewer jumps:
+
+1. BFS -> Dijkstra -> A*
+2. Theta* and JPS
+3. D* and D* Lite
+4. Anytime A* and Anytime D*
+5. Hybrid A*
+6. PRM -> RRT -> RRT*
+7. DWA -> TEB -> Frenet-frame planners
+8. MPC
+
+## Method Comparison (Placeholder)
+
+| Method | Category | Horizon | Dynamics | Optimality | Speed | Typical Role |
+|---|---|---|---|---|---|---|
+| BFS | graph | Global | Basic | Low | Fast | Baseline graph search |
+| Dijkstra | graph | Global | Basic | High | Medium | Cost-optimal graph planning |
+| A* | graph | Global | Basic | Good | Fast | Heuristic global planning |
+| Theta* | graph | Global | Basic | Good | Fast | Any-angle global planning |
+| JPS | graph | Global | Basic | Good | Very fast | Accelerated grid search |
+| Anytime A* | graph | Global | Basic | Improving | Fast/Anytime | Time-bounded heuristic planning |
+| D* | graph | Global/Replan | Basic | Good | Medium | Dynamic map replanning |
+| D* Lite | graph | Global/Replan | Basic | Good | Medium/Fast | Incremental replanning |
+| Anytime D* | graph | Global/Replan | Basic | Improving | Medium | Anytime dynamic replanning |
+| Hybrid A* | graph | Global | Moderate | Good | Medium | Kinematically-feasible global planning |
+| PRM | sample | Global | Moderate | Moderate | Medium | Multi-query roadmap planning |
+| RRT | sample | Global | Moderate | Low | Fast | Feasible path discovery |
+| RRT* | sample | Global | Moderate | High | Slower | Asymptotically optimal sampling |
+| DWA | local | Short | Basic | Low | Fast | Local planning |
+| TEB | local | Medium | Good | Moderate | Medium | Local trajectory optimization |
+| Frenet-frame planners | local | Medium | Good | Moderate | Medium | Structured-road trajectory generation |
+| MPC | optimization | Predictive | Excellent | High | Slower | Advanced control |
+
+## Algorithm Selection Guide (Placeholder)
+
+| Scenario | Candidate Methods | Why | Main Tradeoff |
+|---|---|---|---|
+| Static grid map | A*, Dijkstra | Reliable and interpretable | Grid resolution affects quality |
+| Unknown or changing map | D*, D* Lite | Incremental replanning | More implementation complexity |
+| Car-like nonholonomic robot | Hybrid A* | Respects turning constraints | Higher compute than plain A* |
+| Dense local obstacle field | DWA, TEB | Fast local maneuvering | Local minima and parameter sensitivity |
+| Constrained trajectory tracking | MPC | Explicit constraint handling | Model and tuning effort |
+
+## Practical Planning Stack (Placeholder)
+
+Most systems combine methods rather than using one planner only:
+
+1. Global planner proposes a long-range route.
+2. Local planner adapts motion around near obstacles.
+3. Controller tracks the selected trajectory.
+
+## Detailed Pages and Demos
+
+- Use this page as the summary index.
+- Place detailed explanations in focused subpages.
+- Use the demos page for runnable examples and comparisons.

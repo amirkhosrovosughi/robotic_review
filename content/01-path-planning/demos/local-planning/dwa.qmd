@@ -1,0 +1,58 @@
+---
+title: "DWA (Dynamic Window Approach)"
+---
+
+## Overview
+
+DWA stands for **Dynamic Window Approach**.
+It is a local planning method that samples feasible velocity commands, predicts short-horizon motion, and selects the command with the best score.
+
+Unlike global graph-search methods, DWA operates in velocity space at high frequency and is commonly used for real-time obstacle avoidance.
+
+## When to Use It
+
+Use DWA when:
+
+- you need reactive local motion in cluttered environments,
+- the robot has velocity and acceleration limits,
+- and a global path (or goal direction) is already available.
+
+## Core Idea
+
+At each control step:
+
+1. Build a dynamic window of admissible translational/angular velocities based on current state and acceleration limits.
+2. Forward-simulate short trajectories for sampled commands.
+3. Score each trajectory (goal progress, speed preference, obstacle clearance, path alignment).
+4. Apply the best command for a short duration and repeat.
+
+## Trade-Offs
+
+- Fast and practical for online local avoidance.
+- Works well with differential-drive and similar robots.
+- Sensitive to scoring weights and horizon settings.
+- Can get trapped in local minima without strong global guidance.
+
+## Demo {#demo}
+
+The notebook demonstrates a simplified DWA loop with sampled `(v, w)` controls, trajectory rollout, collision checks, and score-based command selection.
+
+If you want the notebook-style workflow, open:
+
+- [Open In Jupyter Lab](http://localhost:8888/lab/tree/notebooks/path-planning/local-planning/dwa_demo.ipynb)
+
+Exact steps:
+
+1. Open a terminal at the repository root.
+2. Run:
+
+```bash
+source .venv/bin/activate
+jupyter lab --no-browser --port 8888
+```
+
+3. Copy the URL shown by Jupyter (it includes a token) and open it in your browser.
+4. In Jupyter Lab, open `notebooks/path-planning/local-planning/dwa_demo.ipynb` from the file browser.
+5. Run cells with Shift+Enter and tune scoring weights.
+
+Note: `dwa_demo.html` is a rendered static page. The editable environment is the `.ipynb` file in Jupyter Lab or VS Code notebook editor.

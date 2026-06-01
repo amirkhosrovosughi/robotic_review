@@ -1,0 +1,77 @@
+---
+title: "Behavior Control"
+---
+
+This section captures high-level decision and control structures.
+
+## Definition and Goal
+
+Behavior control decides what the robot should do next and how it should switch between actions, policies, or sub-tasks as conditions change.
+
+In a full robotics stack, behavior control usually sits above low-level feedback control and often coordinates planners, perception triggers, and recovery logic.
+
+## Core Topics
+
+- Finite state machines: Represent behavior as named states with explicit transitions. Good for small, well-bounded task logic and easy debugging.
+- Behavior trees: Compose behavior from reusable decision and action nodes with fallback and sequencing structure. Common in robotics because they scale better than flat FSMs.
+- Reactive and deliberative patterns: Balance immediate stimulus-response behavior with longer-horizon reasoning and planning.
+- Failure recovery and fallback behavior: Define what the system should do when actions fail, assumptions break, or progress stalls.
+- Utility-based or arbitration-based behavior selection: Choose among competing actions using scores or priorities instead of fixed transitions.
+- Safety supervisors and rule-based overrides: Enforce hard safety constraints above learned or heuristic policies.
+
+## Additional Topics
+
+- Hierarchical state machines: Extend FSMs with nested states to reduce flat transition complexity.
+- Task and mission executive layers: Coordinate long-running goals, sub-task ordering, and mode management.
+- Reinforcement learning policies: Learn behavior from reward-driven interaction instead of hand-authoring all decision logic.
+- Multi-robot coordination behaviors: Handle role assignment, synchronization, and conflict resolution across agents.
+
+## Reinforcement Learning in This Section
+
+Reinforcement learning is relevant here, but it should be framed carefully.
+
+- RL is usually not a direct replacement for all behavior control structure.
+- In robotics, RL is more often used as a learned policy inside a larger behavior architecture.
+- A behavior tree, FSM, or mission executive may still decide when an RL policy is active and when recovery or safety logic should override it.
+
+So yes, reinforcement learning belongs here, but usually as one behavior-generation approach within a broader control architecture.
+
+## Demo Suitability
+
+Some behavior-control topics are very demo-friendly:
+
+- Finite state machines: very suitable for small notebook demos.
+- Behavior trees: very suitable for small notebook demos with tick traces.
+- Reactive vs deliberative patterns: suitable for simple compare/contrast demos.
+- Failure recovery and fallback behavior: suitable when paired with FSMs or behavior trees.
+- Utility-based arbitration: suitable for toy scoring demos.
+
+Reinforcement learning is possible, but the demo should stay modest:
+
+- a toy grid world or simple navigation policy is realistic,
+- a full robotics RL training setup would be too large for this repo section,
+- a better pattern here is usually: short concept page + very small toy demo + explicit note on limits.
+
+## Comparison Table
+
+| Pattern | Main Idea | Best Fit | Strength | Main Weakness | Demo Fit |
+|---|---|---|---|---|---|
+| Finite state machines | Explicit states and transitions | Small to medium task logic | Easy to understand and debug | Transition explosion as complexity grows | Excellent |
+| Behavior trees | Hierarchical decision and action nodes | Modular robot task logic | Reusable, scalable, readable | Can still become hard to tune at large scale | Excellent |
+| Reactive control | Immediate response to current conditions | Fast local response and safety | Simple and responsive | Weak long-horizon reasoning | Excellent |
+| Deliberative control | Plan before acting | Goal-driven tasks with lookahead | Better long-term structure | Slower and more brittle to change | Good |
+| Recovery/fallback logic | Define failure handling explicitly | Real robot robustness | Improves resilience and safety | Adds branching complexity | Excellent |
+| Utility/arbitration methods | Score and choose among candidates | Competing behaviors or modes | Flexible selection logic | Scoring can be ad hoc | Good |
+| Reinforcement learning | Learn policy from reward | Repeated tasks with learnable structure | Can learn rich policies | Training cost, safety, interpretability | Moderate |
+| Safety supervisor | Override unsafe actions | Deployment-critical systems | Clear safety boundary | May be conservative | Good |
+
+## Suggested Expansion
+
+Add one small runnable example per major control pattern in roughly this order:
+
+1. Finite state machines
+2. Behavior trees
+3. Failure recovery and fallback behavior
+4. Reactive vs deliberative control
+5. Utility-based arbitration
+6. Reinforcement learning as a toy behavior policy

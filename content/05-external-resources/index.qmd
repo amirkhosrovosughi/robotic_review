@@ -1,0 +1,17 @@
+---
+title: "External Resources"
+---
+
+Curated links to useful references.
+
+## Example Resource
+
+- ICP notebook (reference): https://nbviewer.org/github/niosus/notebooks/blob/master/icp.ipynb
+
+## How To Use Links
+
+For each link, add:
+
+- Why it is useful
+- What concept it explains best
+- Key takeaways to capture in local notes

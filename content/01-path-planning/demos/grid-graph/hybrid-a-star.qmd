@@ -1,0 +1,69 @@
+---
+title: "Hybrid A*"
+---
+
+## Overview
+
+Hybrid A* extends A* to continuous-heading or finely discretized-heading state spaces, making it suitable for car-like robots.
+
+Unlike grid A*, each state includes both position and orientation, and transitions use motion primitives that respect turning constraints.
+
+## When to Use It
+
+Use Hybrid A* when:
+
+- your robot has nonholonomic constraints (for example, car-like steering),
+- heading continuity matters,
+- and standard grid A* paths are not directly drivable.
+
+## Core Idea
+
+Hybrid A* searches over states like `(x, y, heading)` and expands feasible vehicle motions instead of simple 4-neighbor grid steps.
+
+A common setup includes:
+
+1. Motion primitives (forward-left, forward-straight, forward-right, optionally reverse),
+2. Collision checks along each primitive,
+3. Heuristic guidance toward goal position and heading.
+
+## Why It Matters
+
+Robots and vehicles often cannot instantaneously rotate or move sideways.
+Hybrid A* creates paths that are much closer to what the platform can actually execute.
+
+## Trade-Offs
+
+- Produces more realistic, drivable global plans.
+- Higher computational cost than plain A* due to larger state space.
+- Sensitive to heading resolution and primitive design.
+- Often paired with path smoothing or trajectory optimization afterward.
+
+## How It Relates to A*
+
+- A*: position-only graph search on a static discretization.
+- Hybrid A*: state-space search including orientation and kinematic feasibility.
+- Hybrid A* typically uses A* mechanics but with richer states and transitions.
+
+## Demo {#demo}
+
+The notebook demonstrates a simplified Hybrid A* search with heading bins and basic motion primitives on an occupancy grid.
+
+If you want the notebook-style workflow, open:
+
+- [Open In Jupyter Lab](http://localhost:8888/lab/tree/notebooks/path-planning/grid-graph/hybrid_a_star_demo.ipynb)
+
+Exact steps:
+
+1. Open a terminal at the repository root.
+2. Run:
+
+```bash
+source .venv/bin/activate
+jupyter lab --no-browser --port 8888
+```
+
+3. Copy the URL shown by Jupyter (it includes a token) and open it in your browser.
+4. In Jupyter Lab, open `notebooks/path-planning/grid-graph/hybrid_a_star_demo.ipynb` from the file browser.
+5. Run cells with Shift+Enter and tune heading bins, step length, and steering primitives.
+
+Note: `hybrid_a_star_demo.html` is a rendered static page. The editable environment is the `.ipynb` file in Jupyter Lab or VS Code notebook editor.

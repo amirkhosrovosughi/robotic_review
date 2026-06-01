@@ -1,0 +1,87 @@
+---
+title: "Path Planning Demos"
+---
+
+This page indexes runnable demos.
+
+## Planned Demos by Method
+
+### BFS {#bfs}
+Combined page available: [BFS Concept + Demo](demos/grid-graph/bfs.qmd).
+Open in Jupyter Lab: [localhost:8888 BFS notebook](http://localhost:8888/lab/tree/notebooks/path-planning/grid-graph/bfs_demo.ipynb).
+
+### Dijkstra {#dijkstra}
+Detail page: [Dijkstra](demos/grid-graph/dijkstra.qmd).
+Demo notebook: [dijkstra_demo.ipynb](../../notebooks/path-planning/grid-graph/dijkstra_demo.ipynb).
+
+### A* {#a-star}
+Detail page: [A*](demos/grid-graph/a-star.qmd).
+Demo notebook: [a_star_demo.ipynb](../../notebooks/path-planning/grid-graph/a_star_demo.ipynb).
+
+### Theta* {#theta-star}
+Detail page: [Theta*](demos/grid-graph/theta-star.qmd).
+Demo notebook: [theta_star_demo.ipynb](../../notebooks/path-planning/grid-graph/theta_star_demo.ipynb).
+
+### JPS {#jps}
+Detail page: [JPS (Jump Point Search)](demos/grid-graph/jps.qmd).
+Demo notebook: [jps_demo.ipynb](../../notebooks/path-planning/grid-graph/jps_demo.ipynb).
+
+### Anytime A* {#anytime-a-star}
+Detail page: [Anytime A*](demos/grid-graph/anytime-a-star.qmd).
+Demo notebook: [anytime_a_star_demo.ipynb](../../notebooks/path-planning/grid-graph/anytime_a_star_demo.ipynb).
+
+### D* {#d-star}
+Detail page: [D*](demos/grid-graph/d-star.qmd).
+Demo notebook: [d_star_demo.ipynb](../../notebooks/path-planning/grid-graph/d_star_demo.ipynb).
+
+### D* Lite {#d-star-lite}
+Detail page: [D* Lite](demos/grid-graph/d-star-lite.qmd).
+Demo notebook: [d_star_lite_demo.ipynb](../../notebooks/path-planning/grid-graph/d_star_lite_demo.ipynb).
+
+### Anytime D* {#anytime-d-star}
+Detail page: [Anytime D*](demos/grid-graph/anytime-d-star.qmd).
+Demo notebook: [anytime_d_star_demo.ipynb](../../notebooks/path-planning/grid-graph/anytime_d_star_demo.ipynb).
+
+### Hybrid A* {#hybrid-a-star}
+Detail page: [Hybrid A*](demos/grid-graph/hybrid-a-star.qmd).
+Demo notebook: [hybrid_a_star_demo.ipynb](../../notebooks/path-planning/grid-graph/hybrid_a_star_demo.ipynb).
+
+### PRM {#prm}
+Detail page: [PRM](demos/graph_based/prm.qmd).
+Demo notebook: [prm_demo.ipynb](../../notebooks/path-planning/graph_based/prm_demo.ipynb).
+
+### RRT {#rrt}
+Detail page: [RRT](demos/graph_based/rrt.qmd).
+Demo notebook: [rrt_demo.ipynb](../../notebooks/path-planning/graph_based/rrt_demo.ipynb).
+
+### RRT* {#rrt-star}
+Detail page: [RRT*](demos/graph_based/rrt-star.qmd).
+Demo notebook: [rrt_star_demo.ipynb](../../notebooks/path-planning/graph_based/rrt_star_demo.ipynb).
+
+### DWA {#dwa}
+Detail page: [DWA (Dynamic Window Approach)](demos/local-planning/dwa.qmd).
+Demo notebook: [dwa_demo.ipynb](../../notebooks/path-planning/local-planning/dwa_demo.ipynb).
+
+### TEB {#teb}
+Detail page: [TEB (Timed Elastic Band)](demos/local-planning/teb.qmd).
+Demo notebook: [teb_demo.ipynb](../../notebooks/path-planning/local-planning/teb_demo.ipynb).
+
+### Frenet-Frame Planners {#frenet-frame-planners}
+Detail page: [Frenet-frame planners](demos/local-planning/frenet-frame-planners.qmd).
+Demo notebook: [frenet_frame_demo.ipynb](../../notebooks/path-planning/local-planning/frenet_frame_demo.ipynb).
+
+### MPC {#mpc}
+Detail page: [MPC (Model Predictive Control)](demos/optimization/mpc.qmd).
+Demo notebook: [mpc_toy_demo.ipynb](../../notebooks/path-planning/optimization/mpc_toy_demo.ipynb).
+Path-planning focus page: [MPC for Path Planning](demos/optimization/mpc-path-planning.qmd).
+Path-planning demo notebook: [mpc_path_planning_demo.ipynb](../../notebooks/path-planning/optimization/mpc_path_planning_demo.ipynb).
+
+## Notebook Links
+
+Add links to notebooks stored in notebooks/path-planning.
+
+When you want editing and cell-by-cell execution, open notebooks through Jupyter Lab (for example `http://localhost:8888/lab/tree/...`) instead of the rendered `.html` output.
+
+Example:
+
+- ../../notebooks/path-planning/a_star_grid.ipynb

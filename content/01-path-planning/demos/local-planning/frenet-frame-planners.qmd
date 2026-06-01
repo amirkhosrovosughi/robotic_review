@@ -1,0 +1,64 @@
+---
+title: "Frenet-Frame Planners"
+---
+
+## Overview
+
+Frenet-frame planners generate candidate trajectories in road-aligned coordinates instead of global Cartesian coordinates.
+
+The state is often represented as:
+
+- longitudinal progress along a reference path (`s`),
+- lateral offset from that path (`d`),
+- and their derivatives.
+
+This representation is widely used in structured-road scenarios because it separates lane-following progress from lateral maneuvering.
+
+## When to Use It
+
+Use Frenet-frame planning when:
+
+- a reliable reference centerline exists (lane center or route spline),
+- you need lane-level behaviors such as keep lane or lane change,
+- and local trajectory generation must be smooth and constrained.
+
+## Core Idea
+
+A common planning cycle is:
+
+1. Build a reference path and convert current state to Frenet coordinates.
+2. Sample candidate lateral and longitudinal profiles over a finite horizon.
+3. Convert each candidate back to Cartesian coordinates.
+4. Evaluate cost and feasibility (comfort, curvature, speed, obstacle clearance).
+5. Execute the best trajectory prefix and replan.
+
+## Trade-Offs
+
+- Very effective in structured roads and highway-like settings.
+- Clear decomposition of lane behavior and speed behavior.
+- Depends strongly on reference-path quality.
+- Less natural in unstructured environments without lane geometry.
+
+## Demo {#demo}
+
+The notebook demonstrates a simplified Frenet planner that samples lateral offset profiles along a reference path and scores candidates for smoothness and obstacle clearance.
+
+If you want the notebook-style workflow, open:
+
+- [Open In Jupyter Lab](http://localhost:8888/lab/tree/notebooks/path-planning/local-planning/frenet_frame_demo.ipynb)
+
+Exact steps:
+
+1. Open a terminal at the repository root.
+2. Run:
+
+```bash
+source .venv/bin/activate
+jupyter lab --no-browser --port 8888
+```
+
+3. Copy the URL shown by Jupyter (it includes a token) and open it in your browser.
+4. In Jupyter Lab, open `notebooks/path-planning/local-planning/frenet_frame_demo.ipynb` from the file browser.
+5. Run cells with Shift+Enter and tune horizon and lateral sampling.
+
+Note: `frenet_frame_demo.html` is a rendered static page. The editable environment is the `.ipynb` file in Jupyter Lab or VS Code notebook editor.

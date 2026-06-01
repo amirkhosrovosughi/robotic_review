@@ -1,0 +1,60 @@
+---
+title: "MPC for Path Planning"
+---
+
+## Why This Page Exists
+
+This page narrows MPC to **path-planning usage** rather than general control.
+
+In planning stacks, MPC is commonly used as a local trajectory optimizer/tracker that respects constraints while following a global or reference path.
+
+## Typical Path-Planning Formulation
+
+A practical MPC planner often minimizes terms such as:
+
+- path tracking error,
+- heading alignment error,
+- control effort and rate change,
+- obstacle proximity penalties.
+
+subject to:
+
+- vehicle dynamics,
+- actuator bounds,
+- velocity/curvature limits,
+- safety constraints.
+
+## Receding-Horizon Planning Interpretation
+
+At each cycle, MPC:
+
+1. receives current state and local reference segment,
+2. optimizes a short horizon trajectory,
+3. applies only the first command,
+4. replans at the next cycle with updated state/sensor data.
+
+This gives local adaptivity around obstacles while staying goal/path oriented.
+
+## Demo {#demo}
+
+The notebook demonstrates a **toy path-planning MPC** for a unicycle-like robot that tracks a 2D reference path while penalizing obstacle proximity.
+
+If you want the notebook-style workflow, open:
+
+- [Open In Jupyter Lab](http://localhost:8888/lab/tree/notebooks/path-planning/optimization/mpc_path_planning_demo.ipynb)
+
+Exact steps:
+
+1. Open a terminal at the repository root.
+2. Run:
+
+```bash
+source .venv/bin/activate
+jupyter lab --no-browser --port 8888
+```
+
+3. Copy the URL shown by Jupyter (it includes a token) and open it in your browser.
+4. In Jupyter Lab, open `notebooks/path-planning/optimization/mpc_path_planning_demo.ipynb` from the file browser.
+5. Run cells with Shift+Enter and tune obstacle/path weights.
+
+Note: `mpc_path_planning_demo.html` is a rendered static page. The editable environment is the `.ipynb` file in Jupyter Lab or VS Code notebook editor.

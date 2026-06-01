@@ -1,0 +1,67 @@
+---
+title: "D* Lite"
+---
+
+## Overview
+
+D* Lite is a simplified and efficient incremental replanning algorithm for changing environments.
+
+It is closely related to Lifelong Planning A* (LPA*) and is widely used as a practical variant of D* ideas.
+
+## When to Use It
+
+Use D* Lite when:
+
+- the map can change during execution,
+- replanning is required repeatedly,
+- and you want a cleaner formulation than classic D*.
+
+## Core Idea
+
+D* Lite maintains search values across updates and repairs only affected regions when costs change.
+
+Compared with full replanning each time, this can reduce repeated computation, especially when map updates are local.
+
+## Why It Matters
+
+For mobile robots in partially known spaces, frequent updates are normal.
+D* Lite helps maintain route quality while reacting quickly to new obstacle information.
+
+## Trade-Offs
+
+- Strong performance for repeated local updates.
+- More bookkeeping than plain A*.
+- Implementation details (priority updates, consistency conditions) matter.
+- Benefits depend on how often and how much the map changes.
+
+## How It Relates to D* and A*
+
+- A*: one-shot planning on a fixed map.
+- D*: incremental replanning family.
+- D* Lite: a compact, LPA*-based formulation of incremental replanning.
+
+## Demo {#demo}
+
+The notebook demonstrates a dynamic-map replanning loop and compares repeated replanning behavior before and after map changes.
+
+For pedagogical clarity, the notebook uses a simplified baseline structure while highlighting the motivation for D* Lite style incremental repair.
+
+If you want the notebook-style workflow, open:
+
+- [Open In Jupyter Lab](http://localhost:8888/lab/tree/notebooks/path-planning/grid-graph/d_star_lite_demo.ipynb)
+
+Exact steps:
+
+1. Open a terminal at the repository root.
+2. Run:
+
+```bash
+source .venv/bin/activate
+jupyter lab --no-browser --port 8888
+```
+
+3. Copy the URL shown by Jupyter (it includes a token) and open it in your browser.
+4. In Jupyter Lab, open `notebooks/path-planning/grid-graph/d_star_lite_demo.ipynb` from the file browser.
+5. Run cells with Shift+Enter and modify update locations and frequencies.
+
+Note: `d_star_lite_demo.html` is a rendered static page. The editable environment is the `.ipynb` file in Jupyter Lab or VS Code notebook editor.

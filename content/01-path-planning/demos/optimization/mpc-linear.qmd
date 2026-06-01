@@ -1,0 +1,39 @@
+---
+title: "Linear MPC"
+---
+
+## What "Linear" Means
+
+Linear MPC assumes linear or linearized dynamics and typically quadratic objectives with linear constraints.
+
+A common discrete-time form is:
+
+$$
+x_{k+1} = A x_k + B u_k
+$$
+
+with optimization variables $u_0, \dots, u_{N-1}$ over horizon $N$.
+
+## Typical Objective Structure
+
+A standard quadratic objective is:
+
+$$
+\min \sum_{k=0}^{N-1} \left(\|x_k - x_k^{\text{ref}}\|_Q^2 + \|u_k\|_R^2\right) + \|x_N - x_N^{\text{ref}}\|_P^2
+$$
+
+where $Q, R, P$ are weight matrices.
+
+## Why It Is Popular
+
+- Strong theory and stability tools.
+- Efficient QP solvers.
+- Good fit when local linearization is accurate.
+
+## Practical Notes
+
+- Model mismatch hurts performance.
+- Tuning $Q, R, P$ and horizon length is crucial.
+- Constraint scaling and unit consistency matter.
+
+Back to main MPC page: [MPC Overview](mpc.qmd).

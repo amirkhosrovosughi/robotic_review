@@ -1,0 +1,21 @@
+---
+title: "Getting Started"
+---
+
+## Local Workflow
+
+1. Activate your Python virtual environment.
+2. Run `quarto preview` from the repository root.
+3. Open the local URL shown in the terminal.
+
+## Add New Content
+
+- Add concept pages under `content/`.
+- Add notebooks under `notebooks/`.
+- Link notebook demos from topic pages.
+
+## Suggested Writing Pattern
+
+- Start with a short concept summary.
+- Add one small worked example.
+- Add references and common pitfalls.

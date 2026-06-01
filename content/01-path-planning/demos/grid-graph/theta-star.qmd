@@ -1,0 +1,73 @@
+---
+title: "Theta*"
+---
+
+## Overview
+
+Theta* is an any-angle extension of A*.
+Instead of forcing the path to follow grid edges exactly, it tries to connect nodes with straight-line segments when there is clear line of sight.
+
+## When to Use It
+
+Use Theta* when:
+
+- you are planning on a grid map,
+- you want smoother, less jagged paths than standard A*,
+- and straight-line shortcuts are acceptable in free space.
+
+## Core Idea
+
+Standard A* builds the path one grid neighbor at a time.
+Theta* adds a line-of-sight check so that a node may connect directly to its grandparent or another earlier ancestor when no obstacle blocks the straight segment.
+
+This often produces paths that look more natural and closer to continuous-space motion.
+
+## Main Steps
+
+1. Start from the same basic structure as A*.
+2. Expand the lowest-priority frontier node.
+3. For each neighbor, test whether the current node's parent has direct line of sight to that neighbor.
+4. If so, connect the neighbor through that parent instead of through the current node.
+5. Continue until the goal is reached.
+
+## Why It Matters
+
+On a grid, A* often creates stair-step paths because it respects the graph edges.
+Theta* reduces that artifact by allowing valid straight segments through free space.
+
+## Trade-Offs
+
+- Usually produces shorter and smoother paths than standard A* on the same grid.
+- Requires extra line-of-sight checks.
+- Still depends on the underlying occupancy grid quality.
+- It is more geometric than plain A*, so implementation details matter more.
+
+## How It Relates to A*
+
+- A* searches on graph edges only.
+- Theta* keeps the A* search structure but relaxes how parent connections are formed.
+- If line-of-sight shortcuts are never available, Theta* behaves much more like A*.
+
+## Demo {#demo}
+
+The demo notebook compares A* and Theta* on the same occupancy grid so you can see how the path shape changes.
+
+If you want the notebook-style workflow, open:
+
+- [Open In Jupyter Lab](http://localhost:8888/lab/tree/notebooks/path-planning/grid-graph/theta_star_demo.ipynb)
+
+Exact steps:
+
+1. Open a terminal at the repository root.
+2. Run:
+
+```bash
+source .venv/bin/activate
+jupyter lab --no-browser --port 8888
+```
+
+3. Copy the URL shown by Jupyter (it includes a token) and open it in your browser.
+4. In Jupyter Lab, open `notebooks/path-planning/grid-graph/theta_star_demo.ipynb` from the file browser.
+5. Run cells with Shift+Enter and edit the map or compare path geometry.
+
+Note: `theta_star_demo.html` is a rendered static page. The editable environment is the `.ipynb` file in Jupyter Lab or VS Code notebook editor.

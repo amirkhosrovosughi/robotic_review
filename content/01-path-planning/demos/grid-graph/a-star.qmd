@@ -1,0 +1,84 @@
+---
+title: "A*"
+---
+
+## Overview
+
+A* finds a minimum-cost path by combining the current path cost with a heuristic estimate of the remaining distance to the goal.
+On a grid, it is often the practical next step after Dijkstra because it usually reaches the goal with fewer expansions.
+
+## When to Use It
+
+Use A* when:
+
+- you need a cost-aware path,
+- you have a reasonable heuristic for goal direction,
+- and edge costs are non-negative.
+
+## Core Idea
+
+A* ranks each frontier node with:
+
+$$
+f(n) = g(n) + h(n)
+$$
+
+where:
+
+- $g(n)$ is the known cost from the start to node $n$,
+- $h(n)$ is the heuristic estimate from $n$ to the goal.
+
+The algorithm prefers nodes that are both cheap so far and promising for reaching the goal.
+
+## Main Steps
+
+1. Start with the source node at cost 0.
+2. Put it in a priority queue ordered by $f(n)$.
+3. Repeatedly pop the lowest-priority node.
+4. Relax neighbors when a cheaper $g(n)$ is found.
+5. Stop when the goal is popped from the queue.
+
+## Heuristic Notes
+
+A* is only guaranteed to be optimal when the heuristic is admissible, meaning it never overestimates the true remaining cost.
+On a 4-neighbor grid, Manhattan distance is a common heuristic.
+
+## Complexity
+
+For a graph with nodes $V$ and edges $E$:
+
+- Worst-case time: $O((|V| + |E|) \log |V|)$ with a heap.
+- Space: $O(|V|)$.
+
+In practice, A* is often faster than Dijkstra because the heuristic reduces unnecessary search.
+
+## How It Relates to Dijkstra
+
+- Dijkstra uses only known path cost $g(n)$.
+- A* uses $g(n) + h(n)$.
+- If $h(n)=0$, A* becomes Dijkstra.
+- Better heuristics usually mean fewer expanded nodes.
+
+## Demo {#demo}
+
+The demo notebook shows A* on a weighted grid and lets you experiment with heuristic strength.
+
+If you want the notebook-style workflow, open:
+
+- [Open In Jupyter Lab](http://localhost:8888/lab/tree/notebooks/path-planning/grid-graph/a_star_demo.ipynb)
+
+Exact steps:
+
+1. Open a terminal at the repository root.
+2. Run:
+
+```bash
+source .venv/bin/activate
+jupyter lab --no-browser --port 8888
+```
+
+3. Copy the URL shown by Jupyter (it includes a token) and open it in your browser.
+4. In Jupyter Lab, open `notebooks/path-planning/grid-graph/a_star_demo.ipynb` from the file browser.
+5. Run cells with Shift+Enter and edit the weighted grid or heuristic settings.
+
+Note: `a_star_demo.html` is a rendered static page. The editable environment is the `.ipynb` file in Jupyter Lab or VS Code notebook editor.

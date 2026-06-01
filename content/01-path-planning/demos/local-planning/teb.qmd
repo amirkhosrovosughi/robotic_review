@@ -1,0 +1,58 @@
+---
+title: "TEB (Timed Elastic Band)"
+---
+
+## Overview
+
+TEB stands for **Timed Elastic Band**.
+It is a local trajectory optimization method that models a path as a sequence of poses with associated time intervals, then optimizes them under obstacle, velocity, acceleration, and kinematic constraints.
+
+Unlike purely sampling-based local planners, TEB continuously deforms a trajectory to satisfy constraints while progressing toward the local goal.
+
+## When to Use It
+
+Use TEB when:
+
+- you need smooth, dynamically feasible local trajectories,
+- your robot must navigate around nearby obstacles in real time,
+- and you want explicit handling of motion constraints.
+
+## Core Idea
+
+At each planning cycle:
+
+1. Represent the trajectory as states (poses) and timing gaps.
+2. Build objective terms and constraints (clearance, smoothness, velocity, acceleration, turning radius, goal progress).
+3. Optimize the trajectory.
+4. Execute the first command, then re-optimize as new sensor data arrives.
+
+## Trade-Offs
+
+- Produces smooth, time-aware local trajectories.
+- Handles many practical constraints in one framework.
+- More parameter tuning and optimization complexity than simpler local planners.
+- Can require careful weight balancing for robust behavior.
+
+## Demo {#demo}
+
+The notebook demonstrates a simplified TEB-style optimization loop where an initial path is refined by balancing smoothness, obstacle avoidance, and goal progression costs.
+
+If you want the notebook-style workflow, open:
+
+- [Open In Jupyter Lab](http://localhost:8888/lab/tree/notebooks/path-planning/local-planning/teb_demo.ipynb)
+
+Exact steps:
+
+1. Open a terminal at the repository root.
+2. Run:
+
+```bash
+source .venv/bin/activate
+jupyter lab --no-browser --port 8888
+```
+
+3. Copy the URL shown by Jupyter (it includes a token) and open it in your browser.
+4. In Jupyter Lab, open `notebooks/path-planning/local-planning/teb_demo.ipynb` from the file browser.
+5. Run cells with Shift+Enter and tune objective weights.
+
+Note: `teb_demo.html` is a rendered static page. The editable environment is the `.ipynb` file in Jupyter Lab or VS Code notebook editor.

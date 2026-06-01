@@ -1,0 +1,60 @@
+project:
+  type: website
+  output-dir: _site
+
+jupyter: .venv/bin/python
+
+website:
+  title: "Robotic Review Notes"
+  sidebar:
+    style: docked
+    search: true
+    contents:
+      - section: "Home"
+        contents:
+          - index.qmd
+          - content/00-home/getting-started.qmd
+      - section: "Path Planning"
+        contents:
+          - content/01-path-planning/index.qmd
+          - content/01-path-planning/demos/grid-graph/bfs.qmd
+          - content/01-path-planning/demos/grid-graph/dijkstra.qmd
+          - content/01-path-planning/demos/grid-graph/a-star.qmd
+          - content/01-path-planning/demos/grid-graph/theta-star.qmd
+          - content/01-path-planning/demos/grid-graph/jps.qmd
+          - content/01-path-planning/demos/grid-graph/anytime-a-star.qmd
+          - content/01-path-planning/demos/grid-graph/d-star.qmd
+          - content/01-path-planning/demos/grid-graph/d-star-lite.qmd
+          - content/01-path-planning/demos/grid-graph/anytime-d-star.qmd
+          - content/01-path-planning/demos/grid-graph/hybrid-a-star.qmd
+          - content/01-path-planning/demos/graph_based/prm.qmd
+          - content/01-path-planning/demos/graph_based/rrt.qmd
+          - content/01-path-planning/demos/graph_based/rrt-star.qmd
+          - content/01-path-planning/demos/local-planning/dwa.qmd
+          - content/01-path-planning/demos/local-planning/teb.qmd
+          - content/01-path-planning/demos/local-planning/frenet-frame-planners.qmd
+          - content/01-path-planning/demos/optimization/mpc.qmd
+          - content/01-path-planning/demos/optimization/mpc-path-planning.qmd
+          - content/01-path-planning/demos/optimization/mpc-linear.qmd
+          - content/01-path-planning/demos/optimization/mpc-nonlinear.qmd
+          - content/01-path-planning/demos.qmd
+      - section: "Behavior Control"
+        contents:
+          - content/02-behavior-control/index.qmd
+      - section: "Foundations"
+        contents:
+          - content/03-foundations/index.qmd
+      - section: "Practice Guides"
+        contents:
+          - content/04-practice-guides/index.qmd
+      - section: "External Resources"
+        contents:
+          - content/05-external-resources/index.qmd
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+
+execute:
+  freeze: auto

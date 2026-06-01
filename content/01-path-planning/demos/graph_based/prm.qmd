@@ -1,0 +1,56 @@
+---
+title: "PRM"
+---
+
+## Overview
+
+PRM (Probabilistic Roadmap) is a sampling-based planner that builds a graph of collision-free samples and then answers path queries by graph search.
+
+It is especially useful for multi-query settings where many start-goal pairs are solved on the same map.
+
+## When to Use It
+
+Use PRM when:
+
+- you solve many queries in a mostly static environment,
+- exact grid discretization is too restrictive,
+- and you want a reusable roadmap representation.
+
+## Core Idea
+
+A standard PRM pipeline is:
+
+1. Sample free configurations.
+2. Connect nearby samples with local collision checks.
+3. Insert start and goal into the roadmap.
+4. Run shortest-path search on the graph.
+
+## Trade-Offs
+
+- Good reuse across repeated queries.
+- Connectivity quality depends on sampling density and connection radius.
+- Less ideal when the map changes frequently.
+
+## Demo {#demo}
+
+The notebook builds a roadmap on a 2D occupancy map, then solves a start-goal query and visualizes graph connectivity.
+
+If you want the notebook-style workflow, open:
+
+- [Open In Jupyter Lab](http://localhost:8888/lab/tree/notebooks/path-planning/graph_based/prm_demo.ipynb)
+
+Exact steps:
+
+1. Open a terminal at the repository root.
+2. Run:
+
+```bash
+source .venv/bin/activate
+jupyter lab --no-browser --port 8888
+```
+
+3. Copy the URL shown by Jupyter (it includes a token) and open it in your browser.
+4. In Jupyter Lab, open `notebooks/path-planning/graph_based/prm_demo.ipynb` from the file browser.
+5. Run cells with Shift+Enter and change sample count or connection radius.
+
+Note: `prm_demo.html` is a rendered static page. The editable environment is the `.ipynb` file in Jupyter Lab or VS Code notebook editor.

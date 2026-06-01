@@ -1,0 +1,11 @@
+---
+title: "Practice Guides"
+---
+
+This section is for applied exercises and review checklists.
+
+## Content Ideas
+
+- Topic-by-topic quick checks
+- Tradeoff comparison tables
+- Common pitfalls and debugging prompts

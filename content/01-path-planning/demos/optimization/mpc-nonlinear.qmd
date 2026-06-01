@@ -1,0 +1,37 @@
+---
+title: "Nonlinear MPC"
+---
+
+## What "Nonlinear" Means
+
+Nonlinear MPC (NMPC) directly optimizes with nonlinear dynamics and possibly nonlinear constraints.
+
+General form:
+
+$$
+x_{k+1} = f(x_k, u_k)
+$$
+
+with trajectory optimization over a finite horizon.
+
+## Why Use NMPC
+
+Use NMPC when linear approximations are not sufficient, for example:
+
+- aggressive maneuvers,
+- strong nonlinear vehicle/robot dynamics,
+- geometry-heavy constraints.
+
+## Trade-Offs
+
+- Better fidelity and potentially better performance.
+- Higher compute burden and solver sensitivity.
+- More challenging warm starts and real-time guarantees.
+
+## Practical Engineering Considerations
+
+- Good initial guesses are critical.
+- Real-time iteration strategies are common.
+- Constraint softening and regularization improve robustness.
+
+Back to main MPC page: [MPC Overview](mpc.qmd).

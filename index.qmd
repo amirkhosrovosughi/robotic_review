@@ -1,0 +1,19 @@
+---
+title: "Robotic Review Notes"
+---
+
+Welcome to the robotics knowledge base.
+
+This site combines concept pages, runnable demos, and curated references.
+
+## Start Here
+
+- Open the left sidebar to navigate by topic.
+- Visit the Path Planning section for algorithm notes and demos.
+- Add new pages as the repository grows.
+
+## Current Focus Areas
+
+- Path planning
+- High-level behavior control
+- Foundations for robust robotics reasoning

@@ -1,0 +1,69 @@
+---
+title: "JPS (Jump Point Search)"
+---
+
+## Overview
+
+JPS stands for **Jump Point Search**.
+It is a speed-up technique for grid-based path planning that is typically used with A* on uniform-cost maps.
+
+Instead of expanding every neighbor at every step, JPS prunes symmetric moves and jumps along straight directions until it finds an important turning point (a jump point), the goal, or a blocked path.
+
+## When to Use It
+
+Use JPS (Jump Point Search) when:
+
+- you are planning on a uniform-cost grid,
+- you want A*-level solution quality,
+- and you need fewer node expansions for faster planning.
+
+## Core Idea
+
+On a uniform grid, many expansions are redundant because symmetric paths have equal cost.
+JPS avoids these redundant expansions by:
+
+- expanding only necessary directions,
+- skipping intermediate cells that cannot change optimality,
+- and keeping only key jump points as search states.
+
+## Why It Can Be Faster
+
+A* on a large open grid may expand many similar nodes.
+JPS often reduces this by a large factor, especially in maps with long corridors or open regions.
+
+## Trade-Offs
+
+- Usually much faster than plain A* on uniform grids.
+- More complex implementation and edge-case handling.
+- Benefit is smaller on non-uniform cost grids.
+- Often paired with grid worlds where movement rules are strict and known.
+
+## How It Relates to A*
+
+- A* is the baseline graph search.
+- JPS (Jump Point Search) is mainly an acceleration layer over A* for suitable grids.
+- If pruning/jumping is disabled, behavior approaches standard A*.
+
+## Demo {#demo}
+
+The demo notebook compares A* and a learning-oriented JPS-style implementation on uniform-cost grids.
+
+If you want the notebook-style workflow, open:
+
+- [Open In Jupyter Lab](http://localhost:8888/lab/tree/notebooks/path-planning/grid-graph/jps_demo.ipynb)
+
+Exact steps:
+
+1. Open a terminal at the repository root.
+2. Run:
+
+```bash
+source .venv/bin/activate
+jupyter lab --no-browser --port 8888
+```
+
+3. Copy the URL shown by Jupyter (it includes a token) and open it in your browser.
+4. In Jupyter Lab, open `notebooks/path-planning/grid-graph/jps_demo.ipynb` from the file browser.
+5. Run cells with Shift+Enter and compare expansion behavior.
+
+Note: `jps_demo.html` is a rendered static page. The editable environment is the `.ipynb` file in Jupyter Lab or VS Code notebook editor.

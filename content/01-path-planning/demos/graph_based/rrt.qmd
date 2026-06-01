@@ -1,0 +1,58 @@
+---
+title: "RRT"
+---
+
+## Overview
+
+RRT (Rapidly-exploring Random Tree) is a sampling-based planner that grows a search tree from the start by repeatedly steering toward random samples.
+
+It is designed for fast feasible-path discovery in large spaces.
+
+## When to Use It
+
+Use RRT when:
+
+- you need a quick first feasible path,
+- the space is large or complex,
+- and exact optimality is not the primary goal.
+
+## Core Idea
+
+Each iteration:
+
+1. Draw a random sample (with optional goal bias).
+2. Find the nearest existing tree node.
+3. Steer a limited step toward the sample.
+4. Add the new node if collision-free.
+
+Stop when the tree reaches the goal region.
+
+## Trade-Offs
+
+- Very effective for first-solution speed.
+- Paths can be jagged and suboptimal.
+- Performance depends on step size and sampling policy.
+
+## Demo {#demo}
+
+The notebook demonstrates RRT tree growth on an occupancy map and visualizes the resulting feasible path.
+
+If you want the notebook-style workflow, open:
+
+- [Open In Jupyter Lab](http://localhost:8888/lab/tree/notebooks/path-planning/graph_based/rrt_demo.ipynb)
+
+Exact steps:
+
+1. Open a terminal at the repository root.
+2. Run:
+
+```bash
+source .venv/bin/activate
+jupyter lab --no-browser --port 8888
+```
+
+3. Copy the URL shown by Jupyter (it includes a token) and open it in your browser.
+4. In Jupyter Lab, open `notebooks/path-planning/graph_based/rrt_demo.ipynb` from the file browser.
+5. Run cells with Shift+Enter and tune goal bias and step length.
+
+Note: `rrt_demo.html` is a rendered static page. The editable environment is the `.ipynb` file in Jupyter Lab or VS Code notebook editor.

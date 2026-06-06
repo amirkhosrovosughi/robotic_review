@@ -93,37 +93,8 @@ quarto render
 
 Generated site output is placed in the default Quarto output directory.
 
-## Current Folder Structure
-
-```text
-robotic_review/
-├── assets/
-│   ├── data/
-│   ├── diagrams/
-│   └── images/
-├── content/
-│   ├── 00-home/
-│   ├── 01-path-planning/
-│   ├── 02-behavior-control/
-│   ├── 03-foundations/
-│   ├── 04-practice-guides/
-│   └── 05-external-resources/
-├── notebooks/
-│   ├── behavior-control/
-│   ├── foundations/
-│   └── path-planning/
-├── scripts/
-│   ├── checks/
-│   └── utils/
-└── templates/
-```
-
 ## Notes on Content Style
 
 - Keep concept pages concise and cross-linked
 - Keep demos small, runnable, and focused on one idea each
 - For external references, include a short note on why each resource is useful
-
-## Next Step
-
-Create Quarto configuration and starter pages that map the existing sections into a browsable site.

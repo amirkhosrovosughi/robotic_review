@@ -22,9 +22,10 @@ Hybrid A* searches over states like `(x, y, heading)` and expands feasible vehic
 
 A common setup includes:
 
-1. Motion primitives (forward-left, forward-straight, forward-right, optionally reverse),
+1. Motion primitives that typically include forward and reverse steering actions,
 2. Collision checks along each primitive,
-3. Heuristic guidance toward goal position and heading.
+3. Heuristic guidance toward goal position and heading,
+4. Analytic expansions, often using Dubins or Reeds-Shepp connections near the goal to accelerate convergence.
 
 ## Why It Matters
 
@@ -36,13 +37,25 @@ Hybrid A* creates paths that are much closer to what the platform can actually e
 - Produces more realistic, drivable global plans.
 - Higher computational cost than plain A* due to larger state space.
 - Sensitive to heading resolution and primitive design.
-- Often paired with path smoothing or trajectory optimization afterward.
+- Often followed by path smoothing or trajectory optimization because motion primitives produce feasible but not necessarily dynamically optimal paths.
 
 ## How It Relates to A*
 
 - A*: position-only graph search on a static discretization.
 - Hybrid A*: state-space search including orientation and kinematic feasibility.
 - Hybrid A* typically uses A* mechanics but with richer states and transitions.
+
+## Algorithm Sketch
+
+A high-level Hybrid A* workflow can be described as:
+
+1. Initialize the search with the start state represented as position and heading.
+2. Expand the current best state using forward and reverse motion primitives that satisfy the vehicle model.
+3. Collision-check each candidate motion and discard infeasible successors.
+4. Score valid successors using path cost plus a heuristic toward the goal pose.
+5. Merge or prune states that fall into the same discretized pose bin when appropriate.
+6. When the search gets close to the goal, attempt an analytic connection such as a Dubins or Reeds-Shepp segment.
+7. Reconstruct the best feasible path, then optionally smooth or optimize it for downstream execution.
 
 ## Demo {#demo}
 

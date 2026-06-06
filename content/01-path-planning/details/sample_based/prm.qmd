@@ -6,6 +6,8 @@ title: "PRM"
 
 PRM (Probabilistic Roadmap) is a sampling-based planner that builds a graph of collision-free samples and then answers path queries by graph search.
 
+PRM samples collision-free configurations in the robot's configuration space (C-space), which may include position, orientation, or joint variables.
+
 It is especially useful for multi-query settings where many start-goal pairs are solved on the same map.
 
 ## When to Use It
@@ -25,11 +27,29 @@ A standard PRM pipeline is:
 3. Insert start and goal into the roadmap.
 4. Run shortest-path search on the graph.
 
+A*, Dijkstra, or another graph-search algorithm can be used on the roadmap. This notebook uses NetworkX shortest-path functionality.
+
 ## Trade-Offs
 
 - Good reuse across repeated queries.
+- Best suited for multi-query problems because roadmap construction cost can be reused across many start-goal queries.
 - Connectivity quality depends on sampling density and connection radius.
 - Less ideal when the map changes frequently.
+- RRT is often preferred for single-query planning.
+
+## Algorithm Sketch
+
+A high-level PRM workflow can be described as:
+
+1. Sample candidate configurations from the robot's free configuration space.
+2. Discard samples that are in collision.
+3. Add the remaining collision-free samples as roadmap nodes.
+4. For each node, attempt local connections to nearby nodes.
+5. Keep an edge only if the local path between the two configurations is collision-free.
+6. Insert the query start and goal into the roadmap and connect them to nearby feasible nodes.
+7. Run graph search on the roadmap to recover a path from start to goal.
+
+The main idea is to spend computation up front building a reusable connectivity graph, then answer individual queries by searching that graph.
 
 ## Demo {#demo}
 

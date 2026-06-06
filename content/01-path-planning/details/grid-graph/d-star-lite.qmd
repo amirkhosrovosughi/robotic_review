@@ -1,0 +1,70 @@
+---
+title: "D* Lite"
+---
+
+## Overview
+
+D* Lite is a simplified and efficient incremental replanning algorithm for changing environments.
+
+It is closely related to Lifelong Planning A* (LPA*) and is widely used as a practical variant of D* ideas.
+
+## When to Use It
+
+Use D* Lite when:
+
+- the map can change during execution,
+- replanning is required repeatedly,
+- and you want a cleaner formulation than classic D*.
+
+## Core Idea
+
+D* Lite maintains search values across updates and repairs only affected regions when costs change.
+
+Compared with full replanning each time, this can reduce repeated computation, especially when map updates are local.
+
+## Why It Matters
+
+For mobile robots in partially known spaces, frequent updates are normal.
+D* Lite helps maintain route quality while reacting quickly to new obstacle information.
+
+## Trade-Offs
+
+- Strong performance for repeated local updates.
+- More bookkeeping than plain A*.
+- Implementation details (priority updates, consistency conditions) matter.
+- Benefits depend on how often and how much the map changes.
+
+## How It Relates to D* and A*
+
+- A*: one-shot planning on a fixed map.
+- D*: incremental replanning family.
+- D* Lite: a compact, LPA*-based formulation of incremental replanning.
+
+## Algorithm Sketch
+
+One useful way to think about D* Lite is as repeated shortest-path repair from the robot's current state while the goal stays fixed.
+
+Pseudo-code level view:
+
+1. Initialize `g(s) = inf` for all states and `rhs(goal) = 0`.
+2. Insert the goal into a priority queue using the D* Lite key.
+3. Run `ComputeShortestPath()` until the current start state is locally consistent.
+4. Follow the best next step from the current start toward the goal.
+5. When edge costs or obstacles change, update the affected vertices and their neighbors.
+6. Increase the key offset `km` as the robot moves.
+7. Run `ComputeShortestPath()` again to repair only the inconsistent part of the search.
+8. Repeat until the robot reaches the goal or no feasible path remains.
+
+The key distinction from repeated A* is that D* Lite does not discard all previous search information after each update.
+
+## Why There Is No Standalone Demo Page
+
+This section does not link to a standalone D* Lite-only demo page because the main teaching value of D* Lite is computational reuse, not a different-looking path.
+
+In this repo, that idea is clearer in a combined comparison notebook where repeated A* and D* Lite are evaluated side by side on the same changing grid.
+
+If you want the runnable notebook, use:
+
+- [Open In Jupyter Lab](http://localhost:8888/lab/tree/notebooks/path-planning/grid-graph/d_star_lite_demo.ipynb)
+
+Why this is the linked notebook: it shows both the repeated-A* baseline and true D* Lite in one place, so the benefit of incremental repair is measurable instead of only described.

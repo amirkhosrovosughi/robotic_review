@@ -25,11 +25,28 @@ RRT* adds two key steps around each new sample:
 
 This produces gradual cost refinement across iterations.
 
+Efficient implementations rely on spatial data structures such as KD-trees for neighbor queries.
+
 ## Trade-Offs
 
 - Better path quality than RRT.
-- Higher compute cost due to neighbor searches and rewiring.
+- Higher compute cost due to nearest-neighbor searches, best-parent selection, and rewiring updates.
 - Slower first solution in some settings.
+
+## Algorithm Sketch
+
+A high-level RRT* workflow can be described as:
+
+1. Initialize a tree rooted at the start state.
+2. Draw a random sample from the state space.
+3. Find the nearest existing node and steer toward the sample.
+4. Reject the candidate if the local motion is in collision.
+5. Find nearby nodes around the new state.
+6. Choose the lowest-cost feasible parent among those nearby nodes.
+7. Insert the new node, then rewire nearby nodes through it when doing so lowers their path cost.
+8. Continue sampling so the tree gradually improves the solution quality over time.
+
+The main idea is to keep the exploratory behavior of RRT while incrementally improving path cost through local parent selection and rewiring.
 
 ## Demo {#demo}
 

@@ -7,6 +7,8 @@ title: "Dijkstra"
 Dijkstra's algorithm finds the minimum-cost path in a graph with non-negative edge weights.
 On a grid, it is a natural next step after BFS because it handles varying traversal costs.
 
+Dijkstra guarantees optimality only for non-negative edge costs. Negative weights require algorithms such as Bellman-Ford.
+
 ## When to Use It
 
 Use Dijkstra when:
@@ -19,6 +21,11 @@ Use Dijkstra when:
 
 Dijkstra always expands the currently known lowest-cost frontier node first.
 This makes it optimal for non-negative costs, but more expensive than BFS on a uniform-cost grid.
+That is because, when all edges have the same cost, BFS can recover the same shortest-path result using a simple FIFO queue instead of maintaining a priority queue and repeated cost comparisons.
+
+Dijkstra minimizes total path cost, not the number of moves.
+
+In robotics, Dijkstra is commonly used on occupancy grids and costmaps with traversal penalties.
 
 ## Main Steps
 
@@ -28,18 +35,34 @@ This makes it optimal for non-negative costs, but more expensive than BFS on a u
 4. Relax its neighbors if a cheaper path is found.
 5. Stop when the goal is finalized.
 
+The first time the goal node is removed from the priority queue, its shortest-path cost is finalized, allowing early termination.
+
 ## Complexity
 
 For a graph with nodes $V$ and edges $E$:
 
 - Time: $O((|V| + |E|) \log |V|)$ with a heap.
-- Space: $O(|V|)$.
+- Space: $O(|V|)$ due to the distance map, parent map, and priority queue.
 
 ## How It Relates to BFS
 
 - BFS is best for unweighted graphs.
 - Dijkstra is the weighted version of shortest-path search.
 - If all edge costs are equal, Dijkstra behaves similarly to BFS.
+
+## Algorithm Sketch
+
+A high-level Dijkstra workflow can be described as:
+
+1. Initialize all node costs to infinity except the start node, which gets cost 0.
+2. Insert the start node into a priority queue keyed by current path cost.
+3. Repeatedly pop the lowest-cost node from the queue.
+4. If it is the goal, stop because its shortest-path cost is finalized.
+5. For each valid neighbor, compute the candidate cost through the current node.
+6. If the candidate cost is lower than the recorded cost, update the neighbor cost, record its parent, and push it into the queue.
+7. Continue until the goal is finalized or the queue becomes empty.
+
+The main idea is to always expand the cheapest known frontier first, which guarantees an optimal path when all edge weights are non-negative.
 
 ## Demo {#demo}
 

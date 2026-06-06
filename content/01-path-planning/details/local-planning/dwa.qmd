@@ -7,7 +7,9 @@ title: "DWA (Dynamic Window Approach)"
 DWA stands for **Dynamic Window Approach**.
 It is a local planning method that samples feasible velocity commands, predicts short-horizon motion, and selects the command with the best score.
 
-Unlike global graph-search methods, DWA operates in velocity space at high frequency and is commonly used for real-time obstacle avoidance.
+Unlike global graph-search methods, DWA performs search in velocity space rather than directly searching position space. It operates at high frequency and is commonly used for real-time obstacle avoidance.
+
+DWA is typically used as a local planner beneath a global planner such as A*, D*, or Hybrid A*, using the global path as guidance while handling local obstacle avoidance.
 
 ## When to Use It
 

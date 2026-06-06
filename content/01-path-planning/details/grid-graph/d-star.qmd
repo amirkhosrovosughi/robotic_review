@@ -1,0 +1,73 @@
+---
+title: "D*"
+---
+
+## Overview
+
+D* is a family of incremental replanning algorithms for environments that can change while a robot is moving.
+
+Instead of planning from scratch after each map update, D* updates parts of the previous search result, which can reduce total replanning effort.
+
+D* is not usually faster than A* for a single planning query. Its advantage appears when the environment changes repeatedly and replanning is required many times.
+
+## When to Use It
+
+Use D* when:
+
+- the map is discovered online or changes over time,
+- replanning must happen repeatedly,
+- and response time matters as much as final path quality.
+
+## Core Idea
+
+A typical D* workflow is:
+
+1. Build an initial plan.
+2. Detect map/cost changes (for example, a newly observed obstacle).
+3. Repair the plan incrementally instead of restarting from zero.
+
+D* Lite is a widely used simplified formulation of this idea.
+The most commonly implemented modern variant is D* Lite, which reformulates the original D* ideas using concepts similar to A* and incremental graph search.
+
+## Why It Matters
+
+In real robots, static assumptions break quickly.
+Doors close, people move, and sensors reveal new obstacles.
+D* methods help maintain a valid route without full replanning every cycle.
+
+## Trade-Offs
+
+- Strong fit for dynamic maps and repeated updates.
+- More complex than single-shot A*.
+- Requires careful bookkeeping for consistency and performance.
+- Benefits are most visible when updates are frequent.
+- If the environment rarely changes, repeated A* replanning may be simpler and perfectly adequate.
+
+## How It Relates to A*
+
+- A* is often used as a one-shot planner on a fixed map.
+- D* focuses on efficient plan repair after map changes.
+- Conceptually, A* computes a path from scratch, while D* attempts to reuse previous search work after map updates.
+- D* can be viewed as an incremental-search extension for dynamic settings.
+
+## Algorithm Sketch
+
+Classic D* is usually presented as an incremental repair process over changing edge costs.
+
+Pseudo-code level view:
+
+1. Compute an initial path using current map costs.
+2. Start moving along that path.
+3. Detect a new obstacle or changed traversal cost.
+4. Mark affected states as needing repair.
+5. Propagate cost changes through the previously computed search structure.
+6. Recompute only the inconsistent part of the route.
+7. Continue moving and repeat when the map changes again.
+
+The central idea is not that D* finds a different style of path than A*, but that it tries to avoid restarting the whole search after every local update.
+
+## Comparison Notebook {#demo}
+
+- [Open In Jupyter Lab](http://localhost:8888/lab/tree/notebooks/path-planning/grid-graph/d_star_lite_demo.ipynb)
+
+Why this link is used here: D* Lite is the cleaner modern formulation to implement in a teaching notebook, and the side-by-side comparison against repeated A* makes the computational reuse easier to see.

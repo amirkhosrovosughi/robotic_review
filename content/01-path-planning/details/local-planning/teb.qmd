@@ -7,7 +7,11 @@ title: "TEB (Timed Elastic Band)"
 TEB stands for **Timed Elastic Band**.
 It is a local trajectory optimization method that models a path as a sequence of poses with associated time intervals, then optimizes them under obstacle, velocity, acceleration, and kinematic constraints.
 
+Unlike pure geometric path smoothing, TEB optimizes both the trajectory geometry and the time intervals between trajectory states.
+
 Unlike purely sampling-based local planners, TEB continuously deforms a trajectory to satisfy constraints while progressing toward the local goal.
+
+TEB is commonly formulated as a graph optimization problem where trajectory states, timing intervals, and constraints contribute cost terms that are optimized jointly.
 
 ## When to Use It
 
@@ -21,10 +25,17 @@ Use TEB when:
 
 At each planning cycle:
 
-1. Represent the trajectory as states (poses) and timing gaps.
+1. Represent the trajectory as states (poses) and timing gaps, and treat both as optimization variables.
 2. Build objective terms and constraints (clearance, smoothness, velocity, acceleration, turning radius, goal progress).
 3. Optimize the trajectory.
 4. Execute the first command, then re-optimize as new sensor data arrives.
+
+## How It Relates to DWA
+
+- DWA samples velocity commands and evaluates short-horizon rollouts.
+- TEB optimizes an entire local trajectory over multiple future states.
+- DWA is generally simpler and computationally cheaper.
+- TEB often produces smoother and more dynamically feasible motion.
 
 ## Trade-Offs
 

@@ -14,6 +14,8 @@ The state is often represented as:
 
 This representation is widely used in structured-road scenarios because it separates lane-following progress from lateral maneuvering.
 
+By planning in (`s`, `d`) coordinates, longitudinal behavior (speed and progress) and lateral behavior (lane position) can be optimized somewhat independently, which simplifies trajectory generation in structured road environments.
+
 ## When to Use It
 
 Use Frenet-frame planning when:
@@ -31,6 +33,16 @@ A common planning cycle is:
 3. Convert each candidate back to Cartesian coordinates.
 4. Evaluate cost and feasibility (comfort, curvature, speed, obstacle clearance).
 5. Execute the best trajectory prefix and replan.
+
+Production Frenet planners often generate polynomial lateral and longitudinal trajectories, then optimize or rank them jointly for comfort, feasibility, and obstacle avoidance.
+
+Common choices include cubic or quintic polynomials for lateral motion and separate longitudinal profiles for speed control along the reference path.
+
+## How It Relates to Other Local Planners
+
+- DWA samples velocity commands directly in control space.
+- TEB optimizes a trajectory in space and time.
+- Frenet planners generate candidate trajectories relative to a reference path and evaluate them after mapping them back to Cartesian space.
 
 ## Trade-Offs
 

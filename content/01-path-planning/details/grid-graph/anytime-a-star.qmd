@@ -6,6 +6,8 @@ title: "Anytime A*"
 
 Anytime A* is a family of planning strategies that produces a feasible path quickly and then improves solution quality as more computation time is available.
 
+Many anytime planners are based on repeated Weighted A* searches with gradually decreasing heuristic inflation. More advanced variants such as ARA* reuse previous search effort between iterations instead of restarting from scratch.
+
 Instead of waiting for the best possible answer first, it returns a usable path early and refines it over time.
 
 ## When to Use It
@@ -20,11 +22,15 @@ Use Anytime A* when:
 
 A common approach is to start with an inflated heuristic (more greedy search) to get a fast initial solution, then reduce inflation and rerun/refine to approach optimality.
 
+Depending on the variant, each improvement step may either rerun a weighted search from scratch or reuse earlier search information to reduce repeated work.
+
 You can think of it as:
 
 1. Fast first answer,
 2. Better answers with additional iterations,
 3. Convergence toward standard A* behavior.
+
+When the inflation factor reaches 1.0, the search becomes standard A*.
 
 ## Why It Matters
 
@@ -36,34 +42,26 @@ Anytime A* helps balance responsiveness and quality.
 - Very good for time-bounded planning loops.
 - Requires careful schedule for heuristic inflation reduction.
 - Intermediate paths may be suboptimal.
+- Larger inflation typically reduces node expansions but can increase path cost.
 - More control logic than plain A*.
 
 ## How It Relates to A*
 
 - Standard A* aims directly for optimality with admissible heuristic.
+- Weighted A* uses $f(n) = g(n) + \epsilon h(n)$, where $\epsilon > 1$ biases the search toward the goal.
 - Anytime A* intentionally relaxes this early to gain speed.
 - As inflation decreases, behavior approaches A*.
 
-## Demo {#demo}
+## Algorithm Sketch
 
-The demo notebook compares multiple inflation levels and shows how path quality changes from fast-first to refined results.
+A common anytime-planning workflow can be described at the pseudo-code level as:
 
-If you want the notebook-style workflow, open:
+1. Choose an initial heuristic inflation factor greater than 1.
+2. Run a weighted search to obtain a fast feasible path.
+3. Record the current best solution cost.
+4. Reduce the inflation factor to make the search less greedy.
+5. Run another improvement step, either by restarting the weighted search or by reusing previous search information, depending on the variant.
+6. Replace the current best path if a lower-cost solution is found.
+7. Repeat until time runs out, the inflation reaches 1, or the improvement becomes negligible.
 
-- [Open In Jupyter Lab](http://localhost:8888/lab/tree/notebooks/path-planning/grid-graph/anytime_a_star_demo.ipynb)
-
-Exact steps:
-
-1. Open a terminal at the repository root.
-2. Run:
-
-```bash
-source .venv/bin/activate
-jupyter lab --no-browser --port 8888
-```
-
-3. Copy the URL shown by Jupyter (it includes a token) and open it in your browser.
-4. In Jupyter Lab, open `notebooks/path-planning/grid-graph/anytime_a_star_demo.ipynb` from the file browser.
-5. Run cells with Shift+Enter and change inflation schedules.
-
-Note: `anytime_a_star_demo.html` is a rendered static page. The editable environment is the `.ipynb` file in Jupyter Lab or VS Code notebook editor.
+The main idea is to trade early optimality for responsiveness, then spend any remaining computation budget improving the solution quality.

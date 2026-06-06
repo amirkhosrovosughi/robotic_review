@@ -30,6 +30,14 @@ where:
 
 The algorithm prefers nodes that are both cheap so far and promising for reaching the goal.
 
+## Priority Comparison
+
+| Algorithm | Priority |
+|---|---|
+| BFS | FIFO queue |
+| Dijkstra | Lowest $g(n)$ |
+| A* | Lowest $g(n) + h(n)$ |
+
 ## Main Steps
 
 1. Start with the source node at cost 0.
@@ -41,7 +49,11 @@ The algorithm prefers nodes that are both cheap so far and promising for reachin
 ## Heuristic Notes
 
 A* is only guaranteed to be optimal when the heuristic is admissible, meaning it never overestimates the true remaining cost.
-On a 4-neighbor grid, Manhattan distance is a common heuristic.
+On a 4-neighbor unit-cost grid, Manhattan distance is admissible and is a common heuristic.
+
+A stronger related property is consistency (also called monotonicity), which means the heuristic obeys the triangle-inequality-like condition from one node to its neighbors. Consistent heuristics help ensure that once a node is finalized, it does not need to be reopened.
+
+When `heuristic_scale > 1`, the algorithm becomes Weighted A* and may return a suboptimal path while expanding fewer nodes.
 
 ## Complexity
 
@@ -51,6 +63,9 @@ For a graph with nodes $V$ and edges $E$:
 - Space: $O(|V|)$.
 
 In practice, A* is often faster than Dijkstra because the heuristic reduces unnecessary search.
+In the worst case, A* behaves like Dijkstra when the heuristic provides little useful guidance.
+
+A* is commonly used on occupancy grids and costmaps for global path planning in robotics.
 
 ## How It Relates to Dijkstra
 
@@ -58,6 +73,20 @@ In practice, A* is often faster than Dijkstra because the heuristic reduces unne
 - A* uses $g(n) + h(n)$.
 - If $h(n)=0$, A* becomes Dijkstra.
 - Better heuristics usually mean fewer expanded nodes.
+
+## Algorithm Sketch
+
+A high-level A* workflow can be described as:
+
+1. Initialize the start node with $g=0$ and priority $f=g+h$.
+2. Insert the start node into a priority queue ordered by lowest $f$ value.
+3. Repeatedly pop the most promising node from the queue.
+4. If it is the goal, stop and reconstruct the path.
+5. For each valid neighbor, compute the candidate path cost $g$ through the current node.
+6. If that new $g$ value is better than the recorded one, update the neighbor's cost, record its parent, and push it back into the queue with updated priority $f=g+h$.
+7. Continue until the goal is found or the queue becomes empty.
+
+The main idea is to combine known cost-so-far with a heuristic estimate so the search stays cost-aware while also being directed toward the goal.
 
 ## Demo {#demo}
 

@@ -4,8 +4,13 @@ title: "Path Planning Methods"
 
 This page is a placeholder hub for method-specific deep dives.
 
+## Grid-Based Planning Overview {#grid-based-overview}
+Overview page available:
+
+- Detail: [Grid-Based Planning Overview](details/grid-graph/grid-based-overview.qmd)
+
 ## BFS {#bfs}
-For BFS, concept and runnable demo are combined here: [BFS Concept + Demo](demos/grid-graph/bfs.qmd).
+For BFS, concept and runnable demo are combined here: [BFS Concept + Demo](details/grid-graph/bfs.qmd).
 
 ## Dijkstra {#dijkstra}
 Detailed notes coming soon.
@@ -16,86 +21,93 @@ Detailed notes coming soon.
 ## Theta* {#theta-star}
 Detailed page and runnable demo:
 
-- Detail: [Theta*](demos/grid-graph/theta-star.qmd)
+- Detail: [Theta*](details/grid-graph/theta-star.qmd)
 - Notebook demo: [theta_star_demo.ipynb](../../notebooks/path-planning/grid-graph/theta_star_demo.ipynb)
 
 ## JPS {#jps}
 Detailed page and runnable demo:
 
-- Detail: [JPS (Jump Point Search)](demos/grid-graph/jps.qmd)
+- Detail: [JPS (Jump Point Search)](details/grid-graph/jps.qmd)
 - Notebook demo: [jps_demo.ipynb](../../notebooks/path-planning/grid-graph/jps_demo.ipynb)
 
 ## Anytime A* {#anytime-a-star}
-Detailed page and runnable demo:
+Detailed page available:
 
-- Detail: [Anytime A*](demos/grid-graph/anytime-a-star.qmd)
-- Notebook demo: [anytime_a_star_demo.ipynb](../../notebooks/path-planning/grid-graph/anytime_a_star_demo.ipynb)
+- Detail: [Anytime A*](details/grid-graph/anytime-a-star.qmd)
 
 ## D* {#d-star}
 Detailed page and runnable demo:
-
-- Detail: [D*](demos/grid-graph/d-star.qmd)
-- Notebook demo: [d_star_demo.ipynb](../../notebooks/path-planning/grid-graph/d_star_demo.ipynb)
+- Detail: [D*](details/grid-graph/d-star.qmd)
+- Notebook demo: [d_star_lite_demo.ipynb](../../notebooks/path-planning/grid-graph/d_star_lite_demo.ipynb)
 
 ## D* Lite {#d-star-lite}
 Detailed page and runnable demo:
 
-- Detail: [D* Lite](demos/grid-graph/d-star-lite.qmd)
+- Detail: [D* Lite](details/grid-graph/d-star-lite.qmd)
 - Notebook demo: [d_star_lite_demo.ipynb](../../notebooks/path-planning/grid-graph/d_star_lite_demo.ipynb)
 
 ## Anytime D* {#anytime-d-star}
-Detailed page and runnable demo:
+Detailed page available:
 
-- Detail: [Anytime D*](demos/grid-graph/anytime-d-star.qmd)
-- Notebook demo: [anytime_d_star_demo.ipynb](../../notebooks/path-planning/grid-graph/anytime_d_star_demo.ipynb)
+- Detail: [Anytime D*](details/grid-graph/anytime-d-star.qmd)
 
 ## Hybrid A* {#hybrid-a-star}
 Detailed page and runnable demo:
 
-- Detail: [Hybrid A*](demos/grid-graph/hybrid-a-star.qmd)
+- Detail: [Hybrid A*](details/grid-graph/hybrid-a-star.qmd)
 - Notebook demo: [hybrid_a_star_demo.ipynb](../../notebooks/path-planning/grid-graph/hybrid_a_star_demo.ipynb)
+
+## Sampling-Based Planning Overview {#sampling-based-overview}
+Overview page available:
+
+- Detail: [Sampling-Based Planning Overview](details/sample_based/sample-based-overview.qmd)
 
 ## PRM {#prm}
 Detailed page and runnable demo:
 
-- Detail: [PRM](demos/graph_based/prm.qmd)
+- Detail: [PRM](details/sample_based/prm.qmd)
 - Notebook demo: [prm_demo.ipynb](../../notebooks/path-planning/graph_based/prm_demo.ipynb)
 
 ## RRT {#rrt}
 Detailed page and runnable demo:
 
-- Detail: [RRT](demos/graph_based/rrt.qmd)
+- Detail: [RRT](details/sample_based/rrt.qmd)
 - Notebook demo: [rrt_demo.ipynb](../../notebooks/path-planning/graph_based/rrt_demo.ipynb)
 
 ## RRT* {#rrt-star}
 Detailed page and runnable demo:
 
-- Detail: [RRT*](demos/graph_based/rrt-star.qmd)
+- Detail: [RRT*](details/sample_based/rrt-star.qmd)
 - Notebook demo: [rrt_star_demo.ipynb](../../notebooks/path-planning/graph_based/rrt_star_demo.ipynb)
+
+## Local Planning Overview {#local-planning-overview}
+Overview page available:
+
+- Detail: [Local Planning Overview](details/local-planning/local-planning-overview.qmd)
 
 ## DWA {#dwa}
 Detailed page and runnable demo:
 
-- Detail: [DWA (Dynamic Window Approach)](demos/local-planning/dwa.qmd)
+- Detail: [DWA (Dynamic Window Approach)](details/local-planning/dwa.qmd)
 - Notebook demo: [dwa_demo.ipynb](../../notebooks/path-planning/local-planning/dwa_demo.ipynb)
 
 ## TEB {#teb}
 Detailed page and runnable demo:
 
-- Detail: [TEB (Timed Elastic Band)](demos/local-planning/teb.qmd)
+- Detail: [TEB (Timed Elastic Band)](details/local-planning/teb.qmd)
 - Notebook demo: [teb_demo.ipynb](../../notebooks/path-planning/local-planning/teb_demo.ipynb)
 
 ## Frenet-Frame Planners {#frenet-frame-planners}
 Detailed page and runnable demo:
 
-- Detail: [Frenet-frame planners](demos/local-planning/frenet-frame-planners.qmd)
+- Detail: [Frenet-frame planners](details/local-planning/frenet-frame-planners.qmd)
 - Notebook demo: [frenet_frame_demo.ipynb](../../notebooks/path-planning/local-planning/frenet_frame_demo.ipynb)
 
 ## MPC {#mpc}
 Detailed page and runnable demo:
 
-- Detail: [MPC (Model Predictive Control)](demos/optimization/mpc.qmd)
+- Detail: [MPC (Model Predictive Control)](details/optimization/mpc.qmd)
 - Notebook demo: [mpc_toy_demo.ipynb](../../notebooks/path-planning/optimization/mpc_toy_demo.ipynb)
-- Path-planning detail: [MPC for Path Planning](demos/optimization/mpc-path-planning.qmd)
+- Path-planning detail: [MPC for Path Planning](details/optimization/mpc-path-planning.qmd)
 - Path-planning notebook demo: [mpc_path_planning_demo.ipynb](../../notebooks/path-planning/optimization/mpc_path_planning_demo.ipynb)
-- Focus pages: [Linear MPC](demos/optimization/mpc-linear.qmd), [Nonlinear MPC](demos/optimization/mpc-nonlinear.qmd)
+- Focus pages: [Linear MPC](details/optimization/mpc-linear.qmd), [Nonlinear MPC](details/optimization/mpc-nonlinear.qmd)

@@ -1,0 +1,87 @@
+---
+title: "Sampling-Based Planning Overview"
+---
+
+## Overview
+
+Sampling-based planners build a representation of the search space by randomly sampling valid configurations instead of explicitly discretizing the entire environment.
+
+They are commonly used in robotics because planning directly in high-dimensional or constrained state spaces can make traditional graph-based methods expensive or impractical.
+
+In most robotics stacks, methods such as PRM, RRT, and RRT* are primarily used as global planners or motion planners rather than short-horizon local obstacle-avoidance methods.
+
+Examples include:
+
+- PRM (Probabilistic Roadmap)
+- RRT (Rapidly-exploring Random Tree)
+- RRT* (Optimal RRT variant)
+
+## Why Sampling-Based Methods?
+
+Graph-based planners such as A* typically require a predefined graph or grid representation.
+
+This works well for many 2D navigation problems, but becomes increasingly difficult when:
+
+- the state space is high-dimensional,
+- vehicle kinematics or dynamics must be respected,
+- exact discretization becomes computationally expensive.
+
+Sampling-based planners avoid constructing the entire search space. Instead, they explore only a subset of configurations that appear useful for finding a path.
+
+They are especially common in motion-planning problems where the state includes more than just 2D position, such as heading, joint angles, or other configuration variables.
+
+## Key Idea
+
+Rather than searching every possible state:
+
+1. Randomly sample valid configurations.
+2. Connect samples using simple local motions.
+3. Search through the resulting structure for a feasible route.
+
+The planner gradually improves its understanding of the space as more samples are added.
+
+## Advantages
+
+- Scales better to higher-dimensional spaces.
+- Naturally handles complex configuration spaces.
+- Can incorporate vehicle constraints more easily than grid-based methods.
+- Often finds feasible paths quickly.
+- Many sampling-based planners are probabilistically complete, meaning the chance of finding a feasible path increases toward 1 as more valid samples are added.
+
+## Limitations
+
+- Paths are usually not optimal without additional optimization.
+- Results depend on sampling density and randomization.
+- Solutions may vary between runs.
+- Collision checking can become computationally expensive.
+
+## How They Compare to Graph-Based Planning
+
+| Graph-Based Planning | Sampling-Based Planning |
+|---|---|
+| Requires an explicit graph or grid | Builds the search structure through sampling |
+| Often provides stronger optimality guarantees | Often prioritizes feasibility first |
+| Common in low-dimensional navigation | Common in higher-dimensional planning |
+| Examples: A*, D*, Hybrid A* | Examples: PRM, RRT, RRT* |
+
+## Comparison of Common Sampling-Based Methods
+
+| Method | Main Idea | Typical Planning Role | Best For | Path Quality | Reuse Across Queries |
+|---|---|---|---|---|---|
+| PRM | Build a roadmap of sampled configurations, then search it | Global or multi-query motion planning | Multiple queries on mostly static maps | Depends on roadmap quality | Excellent |
+| RRT | Grow a tree from the start toward random samples | Global feasible-path planning | Fast feasible-path discovery | Often suboptimal | Limited |
+| RRT* | RRT with local rewiring for cost improvement | Global planning when path quality matters | Better path quality when more computation is available | Improves toward optimal | Limited |
+
+## Practical Takeaway
+
+A useful rule of thumb is:
+
+- Use PRM when many start-goal queries will be solved on the same environment.
+- Use RRT when a fast feasible path is more important than optimality.
+- Use RRT* when path quality matters and additional computation is acceptable.
+
+## Notes
+
+Sampling-based planners are particularly important in motion planning for robotic manipulators, autonomous vehicles, and other systems where the planning space is too large or complex for straightforward grid-based search.
+
+They are less commonly used as stand-alone local planners for reactive obstacle avoidance, where short-horizon methods such as DWA, TEB, or MPC are often a better fit.

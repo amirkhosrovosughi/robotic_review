@@ -1,0 +1,85 @@
+---
+title: "Local Planning Overview"
+---
+
+## Overview
+
+Local planners compute short-horizon motions that react to nearby obstacles, dynamic changes, and tracking constraints while the robot is already moving.
+
+They are commonly used in robotics because a global route alone is usually not enough to produce safe, smooth, executable motion in the robot's immediate surroundings.
+
+In most robotics stacks, local planning methods operate beneath a global planner and continuously refine motion over a short spatial or temporal horizon.
+
+Examples include:
+
+- DWA (Dynamic Window Approach)
+- TEB (Timed Elastic Band)
+- Frenet-frame planners
+
+## Why Local Planning Methods?
+
+Global planners such as A*, D* Lite, PRM, or RRT often produce a long-range route, but they typically do not handle every short-term control decision directly.
+
+This becomes especially important when:
+
+- nearby obstacles are moving or uncertain,
+- the robot must obey velocity, acceleration, or turning constraints,
+- and motion must be updated continuously during execution.
+
+Local planners focus on what the robot should do next, not just where it should eventually end up.
+
+## Key Idea
+
+Rather than searching the full environment at once:
+
+1. Start from the robot's current state and a short-horizon goal or reference path.
+2. Generate or optimize a small set of candidate local motions.
+3. Evaluate those motions for safety, feasibility, and progress.
+4. Execute the best local motion and repeat at the next control cycle.
+
+The planner continually updates its decision as new sensor data arrives.
+
+## Advantages
+
+- Reacts quickly to local obstacles and disturbances.
+- Integrates motion constraints more directly than basic global planners.
+- Produces smoother and more executable short-horizon behavior.
+- Works well as part of a layered navigation stack.
+
+## Limitations
+
+- Usually does not guarantee a globally optimal path.
+- Can get trapped in local minima.
+- Performance depends strongly on model assumptions, tuning, and scoring terms.
+- Often relies on a separate global planner to provide long-range guidance.
+
+## How They Compare to Global Planning
+
+| Global Planning | Local Planning |
+|---|---|
+| Focuses on long-range route selection | Focuses on short-horizon motion execution |
+| Usually uses the full map or a larger planning region | Usually uses nearby state, obstacles, and a local objective |
+| Often emphasizes completeness or long-range path quality | Often emphasizes reactivity, smoothness, and feasibility |
+| Examples: A*, D* Lite, PRM, RRT* | Examples: DWA, TEB, Frenet-frame planners |
+
+## Comparison of Common Local Planning Methods
+
+| Method | Main Idea | Typical Planning Role | Best For | Strength | Main Limitation |
+|---|---|---|---|---|---|
+| DWA | Score short-horizon velocity commands | Reactive local planning | Fast obstacle avoidance for mobile robots | Fast and simple online evaluation | Can be myopic and tuning-sensitive |
+| TEB | Optimize a short time-parameterized trajectory | Local trajectory optimization | Smooth motion in cluttered environments | Balances timing, smoothness, and constraints | More parameters and optimization complexity |
+| Frenet-frame planners | Plan in road-aligned longitudinal/lateral coordinates | Structured local planning | Lane-based driving scenarios | Natural for road geometry and lane constraints | Less general outside structured corridors |
+
+## Practical Takeaway
+
+A useful rule of thumb is:
+
+- Use DWA when you need a simple reactive local controller.
+- Use TEB when trajectory quality and kinematic constraints matter more.
+- Use Frenet-frame planners when the environment is structured around lanes or road centerlines.
+
+## Notes
+
+Local planners are often paired with a global planner that provides long-range guidance while the local method handles immediate collision avoidance and short-horizon trajectory generation.
+
+They are especially important for robots operating in dynamic environments where a static global route must be adapted continuously during execution.

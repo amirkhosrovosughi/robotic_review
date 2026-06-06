@@ -7,6 +7,8 @@ title: "Theta*"
 Theta* is an any-angle extension of A*.
 Instead of forcing the path to follow grid edges exactly, it tries to connect nodes with straight-line segments when there is clear line of sight.
 
+Theta* is not guaranteed to produce the true continuous-space shortest path; it is an any-angle approximation.
+
 ## When to Use It
 
 Use Theta* when:
@@ -19,6 +21,10 @@ Use Theta* when:
 
 Standard A* builds the path one grid neighbor at a time.
 Theta* adds a line-of-sight check so that a node may connect directly to its grandparent or another earlier ancestor when no obstacle blocks the straight segment.
+
+The key modification is that a neighbor may be connected through the current node's parent when line of sight exists.
+
+Theta* can be viewed as incorporating path shortcutting during search rather than as a separate post-processing step.
 
 This often produces paths that look more natural and closer to continuous-space motion.
 
@@ -34,11 +40,13 @@ This often produces paths that look more natural and closer to continuous-space 
 
 On a grid, A* often creates stair-step paths because it respects the graph edges.
 Theta* reduces that artifact by allowing valid straight segments through free space.
+Theta* is especially beneficial in large open regions where long line-of-sight shortcuts exist.
 
 ## Trade-Offs
 
 - Usually produces shorter and smoother paths than standard A* on the same grid.
 - Requires extra line-of-sight checks.
+- Additional line-of-sight checks increase computational cost compared with A*.
 - Still depends on the underlying occupancy grid quality.
 - It is more geometric than plain A*, so implementation details matter more.
 
@@ -46,7 +54,21 @@ Theta* reduces that artifact by allowing valid straight segments through free sp
 
 - A* searches on graph edges only.
 - Theta* keeps the A* search structure but relaxes how parent connections are formed.
-- If line-of-sight shortcuts are never available, Theta* behaves much more like A*.
+- If no useful line-of-sight shortcuts exist, Theta* effectively reduces to A*.
+
+## Algorithm Sketch
+
+A high-level Theta* workflow can be described as:
+
+1. Initialize the search like A* with the start node in a priority queue.
+2. Repeatedly pop the lowest-priority frontier node.
+3. For each neighbor, first consider the usual connection through the current node.
+4. Then test whether the current node's parent has direct line of sight to that neighbor.
+5. If line of sight exists and the shortcut gives a lower path cost, connect the neighbor through the parent instead.
+6. Update the neighbor cost, parent, and queue priority whenever a better connection is found.
+7. Continue until the goal is reached or the frontier is empty.
+
+The main idea is to keep A*'s directed search structure while allowing shortcut parent connections that produce smoother any-angle paths during the search itself.
 
 ## Demo {#demo}
 

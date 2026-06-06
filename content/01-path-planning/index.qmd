@@ -21,32 +21,35 @@ The lists below are ordered in a sensible study sequence: start from simpler bas
 
 ### Grid and Graph Search
 
-- BFS: Unweighted graph search for shortest path in number of edges. [Detail](demos/grid-graph/bfs.qmd) | [Demo](demos.qmd#bfs)
-- Dijkstra: Weighted graph search that guarantees optimal cost-to-go. [Detail](demos/grid-graph/dijkstra.qmd) | [Demo](demos.qmd#dijkstra)
-- A*: Heuristic search balancing speed and solution quality. [Detail](demos/grid-graph/a-star.qmd) | [Demo](demos.qmd#a-star)
-- Theta*: Any-angle extension of A* that reduces grid-constrained zig-zag paths. [Detail](demos/grid-graph/theta-star.qmd) | [Demo](demos.qmd#theta-star)
-- JPS (Jump Point Search): Grid-search acceleration technique that prunes symmetric expansions on uniform-cost maps. [Detail](demos/grid-graph/jps.qmd) | [Demo](demos.qmd#jps)
-- D*: Incremental graph replanning for changing maps. [Detail](demos/grid-graph/d-star.qmd) | [Demo](demos.qmd#d-star)
-- D* Lite: Simplified and efficient incremental replanning based on Lifelong Planning A*. [Detail](demos/grid-graph/d-star-lite.qmd) | [Demo](demos.qmd#d-star-lite)
-- Anytime A*: Produces a fast initial solution and improves it as more time is available. [Detail](demos/grid-graph/anytime-a-star.qmd) | [Demo](demos.qmd#anytime-a-star)
-- Anytime D*: Anytime replanning variant for dynamic environments with bounded improvement over time. [Detail](demos/grid-graph/anytime-d-star.qmd) | [Demo](demos.qmd#anytime-d-star)
-- Hybrid A*: A* variant with continuous heading and vehicle-feasible motion primitives. [Detail](demos/grid-graph/hybrid-a-star.qmd) | [Demo](demos.qmd#hybrid-a-star)
+- Grid-Based Planning Overview. [Detail](details/grid-graph/grid-based-overview.qmd)
+- BFS: Unweighted graph search for shortest path in number of edges. [Detail](details/grid-graph/bfs.qmd) | [Demo](demos.qmd#bfs)
+- Dijkstra: Weighted graph search that guarantees optimal cost-to-go. [Detail](details/grid-graph/dijkstra.qmd) | [Demo](demos.qmd#dijkstra)
+- A*: Heuristic search balancing speed and solution quality. [Detail](details/grid-graph/a-star.qmd) | [Demo](demos.qmd#a-star)
+- Theta*: Any-angle extension of A* that reduces grid-constrained zig-zag paths. [Detail](details/grid-graph/theta-star.qmd) | [Demo](demos.qmd#theta-star)
+- JPS (Jump Point Search): Grid-search acceleration technique that prunes symmetric expansions on uniform-cost maps. [Detail](details/grid-graph/jps.qmd) | [Demo](demos.qmd#jps)
+- D*: Incremental graph replanning for changing maps. [Detail](details/grid-graph/d-star.qmd) | [Demo](demos.qmd#d-star)
+- D* Lite: Simplified and efficient incremental replanning based on Lifelong Planning A*. [Detail](details/grid-graph/d-star-lite.qmd) | [Demo](demos.qmd#d-star-lite)
+- Anytime A*: Produces a fast initial solution and improves it as more time is available. [Detail](details/grid-graph/anytime-a-star.qmd) | [Demo](demos.qmd#anytime-a-star)
+- Anytime D*: Anytime replanning variant for dynamic environments with bounded improvement over time. [Detail](details/grid-graph/anytime-d-star.qmd) | [Demo](demos.qmd#anytime-d-star)
+- Hybrid A*: A* variant with continuous heading and vehicle-feasible motion primitives. [Detail](details/grid-graph/hybrid-a-star.qmd) | [Demo](demos.qmd#hybrid-a-star)
 
 ### Sampling-Based Planning
 
-- PRM: Builds a roadmap of collision-free samples for multi-query planning. [Detail](demos/graph_based/prm.qmd) | [Demo](demos.qmd#prm)
-- RRT: Rapidly explores feasible space for fast first-solution discovery. [Detail](demos/graph_based/rrt.qmd) | [Demo](demos.qmd#rrt)
-- RRT*: RRT variant that rewires for asymptotic optimality. [Detail](demos/graph_based/rrt-star.qmd) | [Demo](demos.qmd#rrt-star)
+- Sampling-Based Planning Overview. [Detail](details/sample_based/sample-based-overview.qmd)
+- PRM: Builds a roadmap of collision-free samples for multi-query planning. [Detail](details/sample_based/prm.qmd) | [Demo](demos.qmd#prm)
+- RRT: Rapidly explores feasible space for fast first-solution discovery. [Detail](details/sample_based/rrt.qmd) | [Demo](demos.qmd#rrt)
+- RRT*: RRT variant that rewires for asymptotic optimality. [Detail](details/sample_based/rrt-star.qmd) | [Demo](demos.qmd#rrt-star)
 
 ### Local Planning and Trajectory Methods
 
-- DWA (Dynamic Window Approach): Evaluates short-horizon velocity commands and selects a safe local motion. [Detail](demos/local-planning/dwa.qmd) | [Demo](demos.qmd#dwa)
-- TEB (Timed Elastic Band): Optimizes a local time-parameterized trajectory under obstacle and kinematic constraints. [Detail](demos/local-planning/teb.qmd) | [Demo](demos.qmd#teb)
-- Frenet-frame planners: Generate trajectories in road-aligned Frenet coordinates, common in structured driving scenarios. [Detail](demos/local-planning/frenet-frame-planners.qmd) | [Demo](demos.qmd#frenet-frame-planners)
+- Local Planning Overview. [Detail](details/local-planning/local-planning-overview.qmd)
+- DWA (Dynamic Window Approach): Evaluates short-horizon velocity commands and selects a safe local motion. [Detail](details/local-planning/dwa.qmd) | [Demo](demos.qmd#dwa)
+- TEB (Timed Elastic Band): Optimizes a local time-parameterized trajectory under obstacle and kinematic constraints. [Detail](details/local-planning/teb.qmd) | [Demo](demos.qmd#teb)
+- Frenet-frame planners: Generate trajectories in road-aligned Frenet coordinates, common in structured driving scenarios. [Detail](details/local-planning/frenet-frame-planners.qmd) | [Demo](demos.qmd#frenet-frame-planners)
 
 ### Optimization and Predictive Methods
 
-- MPC (Model Predictive Control): Solves a constrained predictive optimization problem at each control step. [Detail](demos/optimization/mpc.qmd) | [Demo](demos.qmd#mpc)
+- MPC (Model Predictive Control): Solves a constrained predictive optimization problem at each control step. [Detail](details/optimization/mpc.qmd) | [Demo](demos.qmd#mpc)
 
 ## Additional Methods to Consider
 

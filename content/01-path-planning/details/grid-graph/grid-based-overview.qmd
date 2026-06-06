@@ -1,0 +1,94 @@
+---
+title: "Grid-Based Planning Overview"
+---
+
+## Overview
+
+Grid-based planners represent the environment as a discrete set of cells or graph nodes and search for a route through that explicit structure.
+
+They are widely used in robotics because occupancy grids and costmaps are easy to build from maps or sensor data, and many classical search algorithms operate naturally on them.
+
+In most robotics stacks, methods such as BFS, Dijkstra, A*, Theta*, JPS, D*, and D* Lite are primarily used as global planners or replanners on a known map representation.
+
+Examples include:
+
+- BFS
+- Dijkstra
+- A*
+- Theta*
+- JPS (Jump Point Search)
+- D* and D* Lite
+
+## Why Grid-Based Methods?
+
+Grid-based planners are useful when the environment can be represented directly as free and occupied cells or as a graph with explicit edge costs.
+
+This works especially well when:
+
+- the planning space is low-dimensional,
+- map data is already available as an occupancy grid or costmap,
+- and interpretability and deterministic behavior are important.
+
+By discretizing the search space up front, these methods can provide strong path-quality guarantees and clear algorithm behavior.
+
+## Key Idea
+
+Rather than sampling the state space:
+
+1. Represent the environment as a grid or explicit graph.
+2. Define valid neighbor transitions between states.
+3. Search that structure using a queue, priority queue, or heuristic-guided frontier.
+
+The planner improves or accelerates search by changing how nodes are prioritized, pruned, or repaired.
+
+## Advantages
+
+- Easy to implement and visualize on maps.
+- Often provides strong completeness or optimality guarantees under clear assumptions.
+- Works well with occupancy grids and weighted costmaps.
+- Usually gives deterministic and interpretable behavior for a fixed map and tie-breaking policy.
+
+## Limitations
+
+- Performance depends strongly on grid resolution and graph size.
+- Fine discretization can become computationally expensive.
+- Basic grid paths may look jagged or unrealistic for systems with turning constraints.
+- High-dimensional or highly constrained state spaces are often a poor fit for straightforward grid search.
+
+## How They Compare to Sampling-Based Planning
+
+| Grid-Based Planning | Sampling-Based Planning |
+|---|---|
+| Requires an explicit grid or graph | Builds the search structure through sampling |
+| Often offers clearer optimality guarantees | Often prioritizes feasibility in complex spaces |
+| Common in low-dimensional map-based navigation | Common in higher-dimensional motion planning |
+| Examples: BFS, Dijkstra, A*, D* Lite | Examples: PRM, RRT, RRT* |
+
+## Comparison of Common Grid-Based Methods
+
+| Method | Main Idea | Typical Planning Role | Best For | Path Quality | Map Changes |
+|---|---|---|---|---|---|
+| BFS | Expand uniformly by layers | Global baseline search | Unweighted grids or equal-cost edges | Optimal in number of edges | Weak |
+| Dijkstra | Expand lowest cost-so-far first | Global cost-optimal search | Weighted grids with non-negative costs | Optimal | Weak |
+| A* | Use cost-so-far plus heuristic | Fast global search | Goal-directed planning on costmaps | Optimal with admissible heuristic | Weak |
+| Theta* | Add line-of-sight shortcuts during search | Global any-angle planning | Smoother paths on grids | Often shorter than A* paths | Weak |
+| JPS | Prune symmetric grid expansions | Fast global search on uniform grids | Uniform-cost grid acceleration | Same as A* on supported grids | Weak |
+| D* Lite | Incrementally repair previous search | Global replanning | Dynamic or partially revealed maps | Same target quality as underlying search | Strong |
+| Hybrid A* | Search over position and heading | Global planning for car-like systems | Kinematic feasibility on structured maps | Feasible but not necessarily optimal | Moderate |
+
+## Practical Takeaway
+
+A useful rule of thumb is:
+
+- Use BFS for simple unweighted baselines.
+- Use Dijkstra for weighted shortest-path planning without a heuristic.
+- Use A* when you want cost-aware planning with goal direction.
+- Use Theta* when path geometry matters and line-of-sight shortcuts are acceptable.
+- Use D* Lite when the map changes and replanning efficiency matters.
+- Use Hybrid A* when vehicle heading and turning constraints must be respected.
+
+## Notes
+
+Grid-based planners are especially common in mobile-robot navigation, occupancy-grid planning, and systems that already maintain costmaps or explicit graph representations.
+
+They are less natural for very high-dimensional configuration spaces, where sampling-based or optimization-based methods are often a better fit.

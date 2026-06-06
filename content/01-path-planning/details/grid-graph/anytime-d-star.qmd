@@ -1,0 +1,70 @@
+---
+title: "Anytime D*"
+---
+
+## Overview
+
+Anytime D* combines two goals for dynamic environments:
+
+- react quickly with a usable replanning result,
+- and improve that result as additional computation time becomes available.
+
+It extends incremental replanning ideas (D* family) with anytime behavior.
+
+Anytime D* is closely related to AD* (Anytime Dynamic A*), a widely cited algorithm that combines incremental replanning and anytime search.
+
+## When to Use It
+
+Use Anytime D* when:
+
+- the environment changes while the robot moves,
+- real-time responsiveness is required,
+- and you want path quality to keep improving between updates.
+
+## Core Idea
+
+A typical loop is:
+
+1. Produce a fast feasible update after map/cost changes.
+2. Continue refining route quality while maintaining a valid solution at all times.
+3. Repeat as new sensor updates arrive.
+
+This is useful for robots that must keep moving instead of stopping for full re-optimization.
+
+In practice, educational baselines often illustrate this pattern by rerunning weighted searches with a decreasing inflation schedule after each update. A full Anytime D* method goes further by reusing incremental search state across updates and refinements.
+
+## Why It Matters
+
+In many field settings, both map uncertainty and time pressure are unavoidable.
+Anytime D* helps balance stability, reactivity, and solution quality over time.
+
+## Trade-Offs
+
+- Strong fit for dynamic, time-constrained planning.
+- More algorithmic complexity and tuning than A* or single-shot replanning.
+- Requires robust handling of frequent updates.
+- Quality improvements depend on available spare computation.
+- A simplified weighted-search baseline can show the behavior pattern, but it does not capture the full efficiency benefits of true incremental reuse.
+
+## How It Relates to D* Lite and Anytime A*
+
+- D* Lite emphasizes efficient incremental repair.
+- Anytime A* emphasizes fast-first, improve-later behavior.
+- Anytime D* combines these themes for dynamic replanning with progressive refinement.
+- Production formulations add stronger reuse and theoretical guarantees than a repeated weighted-search baseline.
+
+## Algorithm Sketch
+
+A high-level Anytime D* style workflow can be described as:
+
+1. Compute an initial path using the current map and an anytime-capable search policy.
+2. Start moving along the current best path.
+3. Detect a map change or cost update from new sensor information.
+4. Mark the affected region and repair the current search structure instead of discarding all previous work.
+5. Produce a fast feasible updated path so the robot can continue moving.
+6. If extra computation time remains, reduce heuristic inflation and refine the solution toward lower-cost paths.
+7. Repeat this process as additional updates arrive.
+
+The key idea is to combine quick repair after environmental change with continued improvement when spare computation is available.
+
+Unlike D* Lite, the repaired path may initially be suboptimal, but solution quality improves as additional computation becomes available.

@@ -35,14 +35,28 @@ JPS often reduces this by a large factor, especially in maps with long corridors
 
 - Usually much faster than plain A* on uniform grids.
 - More complex implementation and edge-case handling.
-- Benefit is smaller on non-uniform cost grids.
+- Classic JPS is designed for uniform-cost grids; benefits are reduced and implementation becomes more complex for varying costs.
 - Often paired with grid worlds where movement rules are strict and known.
 
 ## How It Relates to A*
 
 - A* is the baseline graph search.
 - JPS (Jump Point Search) is mainly an acceleration layer over A* for suitable grids.
+- JPS preserves the same optimal path as A* on supported uniform-cost grids.
 - If pruning/jumping is disabled, behavior approaches standard A*.
+
+## Algorithm Sketch
+
+A high-level JPS workflow can be described as:
+
+1. Initialize an A*-style search from the start node.
+2. When expanding a node, prune directions that are symmetric or unnecessary.
+3. For each remaining direction, jump forward along the grid instead of expanding one cell at a time.
+4. Stop the jump when you hit an obstacle, reach the goal, or detect a forced neighbor that creates a necessary turning point.
+5. Add the resulting jump point to the frontier with the appropriate path cost and heuristic priority.
+6. Repeat until the goal is reached or no frontier nodes remain.
+
+The main idea is to skip intermediate cells that do not affect optimality, so the search expands far fewer states than plain A* on suitable uniform-cost grids.
 
 ## Demo {#demo}
 

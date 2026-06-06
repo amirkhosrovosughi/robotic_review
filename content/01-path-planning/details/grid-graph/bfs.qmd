@@ -7,6 +7,8 @@ title: "BFS"
 Breadth-First Search (BFS) explores nodes level by level.
 In an unweighted graph, BFS returns a path with the minimum number of edges.
 
+BFS is optimal only when all edges have equal cost; otherwise use Dijkstra or A*.
+
 Use BFS when:
 
 - The graph is unweighted (or all edges have equal cost)
@@ -18,13 +20,41 @@ Use BFS when:
 - Use a queue (FIFO) to expand frontier nodes in layers.
 - Track visited nodes to avoid repeated work.
 - Store parent pointers to reconstruct the path when goal is reached.
+- BFS minimizes number of moves/edges, not physical distance or travel cost.
+
+## BFS vs Dijkstra vs A*
+
+| Algorithm | Edge Costs | Optimal |
+|---|---|---|
+| BFS | Equal cost only | Yes |
+| Dijkstra | Arbitrary nonnegative costs | Yes |
+| A* | Arbitrary nonnegative costs + heuristic | Yes (admissible heuristic) |
 
 ## Complexity
 
 For graph $G = (V, E)$:
 
 - Time: $O(|V| + |E|)$
-- Space: $O(|V|)$
+- Space: $O(|V|)$ because of the queue and parent/visited structures.
+
+## Grid Connectivity Note
+
+On 8-neighbor grids, be careful with diagonal moves near obstacles.
+If your implementation allows diagonal motion, you usually need a corner-cutting rule so the path does not pass unrealistically through blocked cell corners.
+
+## Algorithm Sketch
+
+A high-level BFS workflow can be described as:
+
+1. Initialize a queue with the start node.
+2. Mark the start node as visited.
+3. Repeatedly pop the oldest node from the queue.
+4. If it is the goal, stop and reconstruct the path.
+5. Otherwise, inspect each valid neighbor.
+6. For each unvisited neighbor, mark it visited, record its parent, and push it to the back of the queue.
+7. Continue until the goal is found or the queue becomes empty.
+
+The main idea is to expand the search in layers, which guarantees the fewest-edge path in an unweighted graph.
 
 ## Demo {#demo}
 
